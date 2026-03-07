@@ -80,13 +80,7 @@ export default function ArchitectureSection() {
                     <p className="text-xl text-white/50 font-light max-w-lg mb-4">
                         Vizhi is a full-stack computational platform. Engineered for deep integration with enterprise infrastructure, localized execution of spatial geometry, and instant cloud synchronicity.
                     </p>
-                    <div className="flex items-center gap-6">
-                        <button className="px-8 py-4 rounded-full bg-cyan-500 hover:bg-cyan-400 text-black font-semibold tracking-wide hover:scale-105 transition-all duration-300 shadow-[0_0_30px_rgba(0,229,255,0.3)]">
-                            Explore Architecture
-                        </button>
-                    </div>
                 </div>
-
             </div>
         </section>
     );

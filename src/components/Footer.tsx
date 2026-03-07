@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 
 export default function Footer() {
-    const links = ["Technology", "Applications", "Vision", "Careers", "Contact"];
+    const links = ["Technology", "Applications", "Vision", "Contact"];
 
     return (
         <footer className="bg-[#050505] border-t border-white/10 pt-32 pb-16 relative overflow-hidden">
@@ -65,7 +65,7 @@ export default function Footer() {
                 className="mt-32 text-center relative z-10 flex flex-col items-center border-t border-white/5 pt-12"
             >
                 <p className="text-white/30 text-xs font-mono tracking-widest uppercase mb-4">
-                    © {new Date().getFullYear()} Vizhi Inc. All rights reserved.
+                    © {new Date().getFullYear()} Vizhixr. All rights reserved.
                 </p>
                 <span className="text-white/60 text-sm font-medium tracking-wide">
                     Engineered in Tamil Nadu

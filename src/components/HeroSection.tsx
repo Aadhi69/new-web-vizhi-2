@@ -2,6 +2,7 @@
 
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
+import { ChevronDown } from "lucide-react";
 
 export default function HeroSection() {
     const containerRef = useRef<HTMLDivElement>(null);
@@ -39,6 +40,9 @@ export default function HeroSection() {
     const bgScale = useTransform(scrollYProgress, [0, 1], [1, 1.5]);
     const bgOpacity = useTransform(scrollYProgress, [0, 0.8], [0.3, 0.1]);
 
+    // Scroll Prompt: visible in the first 3 frames
+    const scrollPromptOpacity = useTransform(scrollYProgress, [0, 0.7, 0.75], [0.4, 0.4, 0]);
+
     return (
         <div ref={containerRef} className="relative h-[400vh] bg-[#050505]">
             {/* Sticky container to hold the animating elements */}
@@ -59,6 +63,17 @@ export default function HeroSection() {
                     <h2 className="text-4xl md:text-7xl font-light text-white/90 tracking-tight">
                         Technology should adapt to the way <span className="text-glow text-white font-medium">humans work.</span>
                     </h2>
+                </motion.div>
+
+                {/* Scroll Prompt */}
+                <motion.div
+                    style={{ opacity: scrollPromptOpacity }}
+                    className="absolute bottom-10 z-30 flex flex-col items-center justify-center pointer-events-none"
+                    animate={{ y: [0, 10, 0] }}
+                    transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
+                >
+                    <span className="text-white/30 text-xs mb-2 uppercase tracking-widest">Scroll</span>
+                    <ChevronDown className="text-white/30" size={24} />
                 </motion.div>
 
                 {/* Scene 2 */}
@@ -89,19 +104,11 @@ export default function HeroSection() {
                     </motion.div>
 
                     <h1 className="text-5xl md:text-7xl lg:text-9xl font-bold tracking-tighter text-white mb-6 uppercase">
-                        The Next <br className="hidden md:block" /> Interface
+                        Spatial <br className="hidden md:block" /> Intelligence
                     </h1>
                     <p className="text-lg md:text-2xl text-white/60 font-light max-w-3xl mb-12">
-                        Vizhi is building a new computing platform where digital intelligence integrates seamlessly with human perception.
+                        At Vizhi, we use Augmented Reality to transform how you interact with information, turning the world into your interface.
                     </p>
-                    <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
-                        <button className="px-8 py-4 rounded-full bg-white text-black font-medium hover:scale-105 transition-transform duration-300">
-                            Explore Technology
-                        </button>
-                        <button className="px-8 py-4 rounded-full border border-white/20 text-white font-medium hover:bg-white/10 transition-colors duration-300 backdrop-blur-md">
-                            Discover the Platform
-                        </button>
-                    </div>
                 </motion.div>
 
             </div>

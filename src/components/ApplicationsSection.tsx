@@ -111,6 +111,26 @@ export default function ApplicationsSection() {
                 </div>
             )
         },
+        {
+            title: "Defence",
+            desc: "Tactical overlays and situational awareness on the battlefield.",
+            icon: <ShieldCheck />,
+            color: "from-gray-500 to-slate-500",
+            hud: (
+                <div className="flex flex-col gap-4 font-mono text-[#00ff44] text-shadow-green w-full">
+                    <div className="flex justify-between w-full text-[10px] sm:text-xs">
+                        <span>14:45</span>
+                        <span>100% 🔋</span>
+                    </div>
+                    <div className="flex flex-col gap-1 items-center justify-center py-4">
+                        <ShieldCheck size={36} className="text-[#00ff44]" />
+                        <div className="text-3xl font-bold tracking-tight">ACTIVE</div>
+                        <div className="text-xs">DEFENCE SHIELD</div>
+                    </div>
+                    <div className="text-[10px] text-center mt-auto uppercase">Status: Secure</div>
+                </div>
+            )
+        },
     ];
 
     return (
@@ -128,9 +148,20 @@ export default function ApplicationsSection() {
                 </p>
             </div>
 
-            <div className="max-w-7xl mx-auto px-6 overflow-x-auto pb-12 snap-x hide-scrollbar">
-                <div className="flex gap-6 w-max">
-                    {industries.map((ind, i) => (
+            <div className="max-w-7xl mx-auto px-6 overflow-hidden pb-12">
+                <motion.div
+                    className="flex gap-6 w-max"
+                    animate={{ x: ["0%", "-50%"] }}
+                    transition={{
+                        x: {
+                            repeat: Infinity,
+                            repeatType: "loop",
+                            duration: 60,
+                            ease: "linear",
+                        },
+                    }}
+                >
+                    {[...industries, ...industries].map((ind, i) => (
                         <motion.div
                             key={i}
                             whileHover={{ y: -10 }}
@@ -159,7 +190,7 @@ export default function ApplicationsSection() {
                             </div>
                         </motion.div>
                     ))}
-                </div>
+                </motion.div>
             </div>
         </section>
     );

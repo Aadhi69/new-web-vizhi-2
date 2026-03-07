@@ -2,6 +2,7 @@
 
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
+import Link from "next/link";
 
 export default function VisionSection() {
     const containerRef = useRef<HTMLDivElement>(null);
@@ -23,16 +24,14 @@ export default function VisionSection() {
 
             <motion.div
                 style={{ filter: `blur(${blurAmount}px)`, opacity: opacityAmount, scale: scaleAmount }}
-                className="max-w-4xl px-6 relative z-10"
+                className="max-w-4xl px-6 relative z-10 w-full flex flex-col items-center justify-center mt-12 gap-8"
             >
-                <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-white mb-12">
-                    A New Computing <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-300 to-cyan-500">Paradigm</span>
+                <h2 className="text-5xl md:text-7xl font-bold tracking-tighter text-white">
+                    Step Into the Future
                 </h2>
-
-                <div className="space-y-6 text-4xl md:text-7xl font-light text-white/90 tracking-tighter leading-tight">
-                    <p>Computing should not interrupt reality.</p>
-                    <p className="text-white/40 italic">It should integrate with it.</p>
-                </div>
+                <Link href="/contact" className="px-8 py-4 rounded-full bg-cyan-500 hover:bg-cyan-400 text-black font-semibold tracking-wide hover:scale-105 transition-all duration-300 shadow-[0_0_30px_rgba(0,229,255,0.3)] text-2xl">
+                    Contact Us
+                </Link>
             </motion.div>
         </section>
     );
