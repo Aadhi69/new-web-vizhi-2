@@ -54,6 +54,7 @@ export default function DeviceSection() {
                             <div className="w-[60%] h-[2px] bg-white/20 rounded-full absolute bottom-10" />
                             {/* Simulating geometric shapes assembling */}
                             <motion.div
+                                layout
                                 animate={{ rotate: 360 }}
                                 transition={{ repeat: Infinity, duration: 20, ease: "linear" }}
                                 className="w-32 h-32 border border-cyan-500/30 rounded-full dashed-border"

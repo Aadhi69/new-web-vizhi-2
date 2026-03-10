@@ -1,7 +1,12 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import { useEffect } from "react";
 import Lenis from "lenis";
+
+const CustomCursor = dynamic(() => import("@/components/CustomCursor"), {
+    ssr: false,
+});
 
 export default function SmoothScrolling({
     children,
@@ -31,5 +36,10 @@ export default function SmoothScrolling({
         };
     }, []);
 
-    return <>{children}</>;
+    return (
+        <>
+            <CustomCursor />
+            {children}
+        </>
+    );
 }

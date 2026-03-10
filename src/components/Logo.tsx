@@ -21,7 +21,7 @@ export default function Logo() {
                 onClick={handleClick}
                 className="w-10 h-10 md:w-16 md:h-16 relative flex items-center justify-center pointer-events-auto opacity-80 hover:opacity-100 transition-opacity duration-300 mix-blend-screen cursor-pointer"
             >
-                <Image src="/logo.jpg" alt="Vizhi Logo" fill className="object-contain" priority />
+                <Image src="/Vizhi_Logo.png" alt="Vizhi Logo" fill className="object-contain" priority />
             </Link>
         </nav>
     );

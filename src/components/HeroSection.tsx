@@ -54,8 +54,8 @@ export default function HeroSection() {
                     className="absolute inset-0 z-0 pointer-events-none"
                 >
                     <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--color-vizhi-electric)_0%,_transparent_50%)] opacity-20 blur-[100px]" />
-                    {/* Abstract representation of particles/neural net */}
-                    <div className="absolute inset-0 bg-[url('https://transparenttextures.com/patterns/stardust.png')] opacity-30 mix-blend-overlay" />
+                    {/* CSS-based representation of particles/neural net */}
+                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_white_1px,_transparent_1px)] bg-[size:40px_40px] opacity-10 mix-blend-overlay" />
                 </motion.div>
 
                 {/* Scene 1 */}

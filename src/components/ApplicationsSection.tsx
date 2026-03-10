@@ -149,17 +149,8 @@ export default function ApplicationsSection() {
             </div>
 
             <div className="max-w-7xl mx-auto px-6 overflow-hidden pb-12">
-                <motion.div
-                    className="flex gap-6 w-max"
-                    animate={{ x: ["0%", "-50%"] }}
-                    transition={{
-                        x: {
-                            repeat: Infinity,
-                            repeatType: "loop",
-                            duration: 60,
-                            ease: "linear",
-                        },
-                    }}
+                <div
+                    className="flex gap-6 w-max animate-infinite-scroll will-change-transform"
                 >
                     {[...industries, ...industries].map((ind, i) => (
                         <motion.div
@@ -190,7 +181,7 @@ export default function ApplicationsSection() {
                             </div>
                         </motion.div>
                     ))}
-                </motion.div>
+                </div>
             </div>
         </section>
     );
