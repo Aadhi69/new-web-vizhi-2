@@ -3,7 +3,6 @@ import { Inter, Outfit } from "next/font/google";
 import "./globals.css";
 import SmoothScrolling from "@/components/SmoothScrolling";
 
-
 const inter = Inter({
   variable: "--font-inter",
   subsets: ["latin"],
@@ -33,11 +32,9 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark">
       <body
-        className={`${inter.variable} ${outfit.variable} antialiased bg-[#050505] text-white selection:bg-[#00e5ff] selection:text-black`}
+        className={`${inter.variable} ${outfit.variable} antialiased bg-[#050505] text-white selection:bg-white selection:text-black`}
       >
-        <SmoothScrolling>
-          {children}
-        </SmoothScrolling>
+        <SmoothScrolling>{children}</SmoothScrolling>
       </body>
     </html>
   );

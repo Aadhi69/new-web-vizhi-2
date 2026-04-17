@@ -2,9 +2,7 @@
 
 @font-face {
   font-family: "VizhiCustom";
-  src:
-    url("/fonts/VizhiCustom-Regular.woff2") format("woff2"),
-    url("/fonts/VizhiCustom-Regular.woff") format("woff");
+  src: url("/fonts/VizhiCustom-Regular.woff") format("woff");
   font-weight: 100 900;
   font-style: normal;
   font-display: swap;
@@ -32,6 +30,10 @@
   --font-custom: "VizhiCustom";
   --vizhi-heading-tracking: -0.015em;
   --vizhi-heading-weight: 650;
+}
+
+html {
+  filter: grayscale(100%);
 }
 
 body {
