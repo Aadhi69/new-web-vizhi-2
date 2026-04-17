@@ -15,10 +15,8 @@
   --color-vizhi-black: #050505;
   --color-vizhi-gray: #1a1a1a;
   --color-vizhi-graphite: #2a2a2a;
-  --color-vizhi-electric: #00e5ff;
-  /* cyan glow accent */
-  --color-vizhi-blue: #0070f3;
-  /* subtle electric blue highlights */
+  --color-vizhi-electric: #ffffff;
+  --color-vizhi-blue: #cfcfcf;
 
   --font-sans: var(--font-custom), var(--font-inter);
   --font-heading: var(--font-custom), var(--font-outfit);
@@ -33,7 +31,7 @@
 }
 
 html {
-  filter: grayscale(100%);
+  filter: grayscale(100%) contrast(1.05);
 }
 
 body {
@@ -132,17 +130,22 @@ body::-webkit-scrollbar {
 
 /* Glowing text */
 .text-glow {
-  text-shadow: 0 0 20px rgba(0, 229, 255, 0.5);
+  text-shadow: 0 0 18px rgba(255, 255, 255, 0.35);
 }
 
 .text-shadow-green {
   text-shadow:
-    0 0 10px rgba(0, 255, 0, 0.8),
-    0 0 20px rgba(0, 255, 0, 0.4);
+    0 0 10px rgba(255, 255, 255, 0.45),
+    0 0 20px rgba(255, 255, 255, 0.25);
 }
 
 .glow-box {
-  box-shadow: 0 0 30px rgba(0, 229, 255, 0.15);
+  box-shadow: 0 0 30px rgba(255, 255, 255, 0.12);
+}
+
+/* Keep controls and UA accents monochrome too */
+* {
+  accent-color: #ffffff;
 }
 
 @keyframes scroll {

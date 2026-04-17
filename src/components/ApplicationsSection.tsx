@@ -13,6 +13,7 @@ import {
   Database,
   Focus,
   Navigation,
+  MousePointer2,
 } from "lucide-react";
 
 export default function ApplicationsSection() {
@@ -169,6 +170,15 @@ export default function ApplicationsSection() {
         <p className="vizhi-section-lead text-base sm:text-lg md:text-xl text-white/50 font-light max-w-2xl mx-auto">
           Built for industries that demand perfection.
         </p>
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: [0.45, 0.9, 0.45], y: [0, 4, 0] }}
+          transition={{ duration: 2.2, repeat: Infinity, ease: "easeInOut" }}
+          className="mt-6 inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/5 px-4 py-2 text-[10px] sm:text-xs uppercase tracking-[0.14em] text-white/80"
+        >
+          <MousePointer2 size={14} />
+          Hover Cards Below To See Features
+        </motion.div>
       </div>
 
       <div className="max-w-7xl mx-auto px-6 overflow-hidden pb-12">
