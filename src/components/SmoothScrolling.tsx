@@ -3,27 +3,28 @@
 import dynamic from "next/dynamic";
 import { useEffect } from "react";
 import Lenis from "lenis";
+import StarfieldBackground from "@/components/StarfieldBackground";
 
 const CustomCursor = dynamic(() => import("@/components/CustomCursor"), {
-    ssr: false,
+  ssr: false,
 });
 
 export default function SmoothScrolling({
-    children,
+  children,
 }: {
-    children: React.ReactNode;
+  children: React.ReactNode;
 }) {
-    useEffect(() => {
-        const lenis = new Lenis({
-            lerp: 0.1,
-            autoRaf: true,
-            smoothWheel: true,
-        });
+  useEffect(() => {
+    const lenis = new Lenis({
+      lerp: 0.1,
+      autoRaf: true,
+      smoothWheel: true,
+    });
 
-        // The autoRaf: true option automatically handles the requestAnimationFrame loop,
-        // so we don't need to manually call lenis.raf(time) here.
-        // If autoRaf is false, we would uncomment the loop below.
-        /*
+    // The autoRaf: true option automatically handles the requestAnimationFrame loop,
+    // so we don't need to manually call lenis.raf(time) here.
+    // If autoRaf is false, we would uncomment the loop below.
+    /*
         function raf(time: number) {
             lenis.raf(time);
             requestAnimationFrame(raf);
@@ -31,15 +32,16 @@ export default function SmoothScrolling({
         requestAnimationFrame(raf);
         */
 
-        return () => {
-            lenis.destroy();
-        };
-    }, []);
+    return () => {
+      lenis.destroy();
+    };
+  }, []);
 
-    return (
-        <>
-            <CustomCursor />
-            {children}
-        </>
-    );
+  return (
+    <>
+      <StarfieldBackground />
+      <div className="relative z-20">{children}</div>
+      <CustomCursor />
+    </>
+  );
 }

@@ -1,5 +1,6 @@
 import Logo from "@/components/Logo";
 import HeroSection from "@/components/HeroSection";
+import ImpactSection from "@/components/ImpactSection";
 import DeviceSection from "@/components/DeviceSection";
 import BatterySection from "@/components/BatterySection";
 import InteractionSection from "@/components/InteractionSection";
@@ -14,6 +15,7 @@ export default function Home() {
       <Logo />
 
       <HeroSection />
+      <ImpactSection />
       <DeviceSection />
       <BatterySection />
       <InteractionSection />

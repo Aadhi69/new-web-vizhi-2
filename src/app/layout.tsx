@@ -3,7 +3,6 @@ import { Inter, Outfit } from "next/font/google";
 import "./globals.css";
 import SmoothScrolling from "@/components/SmoothScrolling";
 
-
 const inter = Inter({
   variable: "--font-inter",
   subsets: ["latin"],
@@ -17,11 +16,16 @@ const outfit = Outfit({
 });
 
 export const metadata: Metadata = {
-  title: "Vizhi | The Next Interface",
+  title: {
+    default: "Vizhi XR | Enterprise Spatial Intelligence Platform",
+    template: "%s | Vizhi XR",
+  },
   description:
     "Vizhi is building a new computing platform where digital intelligence integrates seamlessly with human perception.",
   icons: {
     icon: "/Vizhi_Logo.png",
+    shortcut: "/Vizhi_Logo.png",
+    apple: "/Vizhi_Logo.png",
   },
 };
 
@@ -33,11 +37,9 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark">
       <body
-        className={`${inter.variable} ${outfit.variable} antialiased bg-[#050505] text-white selection:bg-[#00e5ff] selection:text-black`}
+        className={`${inter.variable} ${outfit.variable} antialiased bg-[#050505] text-white selection:bg-white selection:text-black`}
       >
-        <SmoothScrolling>
-          {children}
-        </SmoothScrolling>
+        <SmoothScrolling>{children}</SmoothScrolling>
       </body>
     </html>
   );
