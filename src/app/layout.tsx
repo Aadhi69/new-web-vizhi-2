@@ -16,11 +16,16 @@ const outfit = Outfit({
 });
 
 export const metadata: Metadata = {
-  title: "Vizhi | The Next Interface",
+  title: {
+    default: "Vizhi XR | Enterprise Spatial Intelligence Platform",
+    template: "%s | Vizhi XR",
+  },
   description:
     "Vizhi is building a new computing platform where digital intelligence integrates seamlessly with human perception.",
   icons: {
     icon: "/Vizhi_Logo.png",
+    shortcut: "/Vizhi_Logo.png",
+    apple: "/Vizhi_Logo.png",
   },
 };
 
