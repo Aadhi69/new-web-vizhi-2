@@ -13,25 +13,39 @@ function useTypewriter(text: string, start: boolean, speed = 36) {
   const [value, setValue] = useState("");
   const [isDone, setIsDone] = useState(false);
   const startedRef = useRef(false);
+  const frameRef = useRef<number | null>(null);
+  const lastLengthRef = useRef(0);
 
   useEffect(() => {
     if (!start || startedRef.current) return;
 
     startedRef.current = true;
-    let index = 0;
+    const startTime = performance.now();
 
-    const timer = window.setInterval(() => {
-      index += 1;
-      setValue(text.slice(0, index));
+    const tick = (now: number) => {
+      const elapsed = now - startTime;
+      const nextLength = Math.min(text.length, Math.floor(elapsed / speed));
 
-      if (index >= text.length) {
-        window.clearInterval(timer);
-        setIsDone(true);
+      if (nextLength !== lastLengthRef.current) {
+        lastLengthRef.current = nextLength;
+        setValue(text.slice(0, nextLength));
       }
-    }, speed);
+
+      if (nextLength >= text.length) {
+        setIsDone(true);
+        frameRef.current = null;
+        return;
+      }
+
+      frameRef.current = window.requestAnimationFrame(tick);
+    };
+
+    frameRef.current = window.requestAnimationFrame(tick);
 
     return () => {
-      window.clearInterval(timer);
+      if (frameRef.current !== null) {
+        window.cancelAnimationFrame(frameRef.current);
+      }
     };
   }, [start, speed, text]);
 
@@ -113,7 +127,7 @@ export default function HeroSection() {
     scene2Start,
     130,
   );
-  const scene3Text = useTypewriter("Introducing Vizhi.", scene3Start, 140);
+  const scene3Text = useTypewriter("Introducing Vizhi", scene3Start, 140);
   const scene4TitleText = useTypewriter(
     "Spatial\nIntelligence",
     scene4Start,
@@ -131,10 +145,10 @@ export default function HeroSection() {
           style={{ scale: bgScale, opacity: bgOpacity }}
           className="absolute inset-0 z-0 pointer-events-none"
         >
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--color-vizhi-electric)_0%,_transparent_50%)] opacity-20 blur-[100px]" />
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,var(--color-vizhi-electric)_0%,transparent_50%)] opacity-20 blur-[100px]" />
           {/* CSS-based representation of particles/neural net */}
           <motion.div
-            className="absolute inset-0 bg-[radial-gradient(circle_at_center,_white_1px,_transparent_1px)] bg-[size:40px_40px] opacity-10 mix-blend-overlay"
+            className="absolute inset-0 bg-[radial-gradient(circle_at_center,white_1px,transparent_1px)] bg-size-[40px_40px] opacity-10 mix-blend-overlay"
             animate={{
               backgroundPositionX: ["0px", "40px"],
               backgroundPositionY: ["0px", "40px"],
@@ -191,7 +205,7 @@ export default function HeroSection() {
           style={{ opacity: scene3Opacity, y: scene3Y, scale: scene3Scale }}
           className="absolute z-10 text-center flex flex-col items-center justify-center pointer-events-none"
         >
-          <h2 className="vizhi-display-title text-5xl sm:text-6xl md:text-8xl lg:text-9xl font-extrabold tracking-tighter text-white drop-shadow-[0_0_40px_rgba(0,229,255,0.8)] z-20">
+          <h2 className="vizhi-display-title nitro-text nitro-text-strong text-5xl sm:text-6xl md:text-8xl lg:text-9xl font-extrabold tracking-tighter text-white drop-shadow-[0_0_40px_rgba(0,229,255,0.8)] z-20">
             {scene3Text.value}
             {!scene3Text.isDone && <span className={cursorClass}>|</span>}
           </h2>
@@ -207,7 +221,7 @@ export default function HeroSection() {
             className="absolute -top-32 md:-top-48 opacity-40 z-[-1] pointer-events-none"
           >
             {/* Silhouette of glasses using geometric gradients as placeholder */}
-            <div className="w-[300px] md:w-[600px] h-[100px] md:h-[150px] border-t-2 border-white/20 rounded-[100%] blur-[2px] bg-gradient-to-b from-cyan-500/10 to-transparent" />
+            <div className="w-75 md:w-150 h-25 md:h-37.5 border-t-2 border-white/20 rounded-[100%] blur-[2px] bg-linear-to-b from-cyan-500/10 to-transparent" />
           </motion.div>
 
           <h1 className="vizhi-display-title text-4xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-bold tracking-tighter text-white mb-4 sm:mb-6 md:mb-8 uppercase whitespace-pre-line">

@@ -62,8 +62,8 @@ export default function Logo() {
               priority
             />
           </span>
-          <span className="text-white/85 group-hover:text-white transition-colors text-[10px] md:text-xs uppercase tracking-[0.22em]">
-            Vizhi Interface
+          <span className="nitro-text nitro-text-soft group-hover:text-white transition-colors text-[10px] md:text-xs uppercase tracking-[0.22em]">
+            Vizhi xr
           </span>
         </Link>
 

@@ -47,7 +47,7 @@ export default function ArchitectureSection() {
       className="py-28 sm:py-32 md:py-40 lg:py-48 bg-[#050505] border-t border-b border-white/5 relative overflow-hidden"
     >
       {/* Subtle glowing orb in background */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-cyan-900/10 blur-[150px] rounded-full pointer-events-none" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-200 h-200 bg-cyan-900/10 blur-[150px] rounded-full pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-6 lg:px-12 grid grid-cols-1 lg:grid-cols-2 gap-14 sm:gap-16 lg:gap-20 items-center relative z-10">
         {/* Architecture Stack (Redesigned from 3D to 2D polished flow) */}
@@ -66,24 +66,94 @@ export default function ArchitectureSection() {
                 key={i}
                 initial={{ opacity: 0, x: -50 }}
                 whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true, margin: "-100px" }}
+                viewport={{ once: false, margin: "-100px" }}
                 transition={{ duration: 0.6, delay: i * 0.15, ease: "easeOut" }}
-                className="relative z-10 flex items-center gap-6 md:gap-8 group"
+                className="relative z-10 flex items-center gap-6 md:gap-8"
               >
                 {/* Icon Node */}
-                <div className="w-16 h-16 md:w-24 md:h-24 shrink-0 rounded-2xl glass-panel group-hover:border-cyan-500/50 flex items-center justify-center transition-colors duration-500 relative bg-black/50">
-                  <div className="text-cyan-400 group-hover:text-cyan-300 transition-colors duration-300 group-hover:drop-shadow-[0_0_15px_rgba(0,229,255,0.8)]">
+                <motion.div
+                  className="w-16 h-16 md:w-24 md:h-24 shrink-0 rounded-2xl glass-panel flex items-center justify-center relative bg-black/50"
+                  initial={{
+                    borderColor: "rgba(255,255,255,0.1)",
+                    boxShadow: "0 0 0 rgba(255,255,255,0)",
+                  }}
+                  whileInView={{
+                    borderColor: [
+                      "rgba(255,255,255,0.1)",
+                      "rgba(255,255,255,0.5)",
+                      "rgba(255,255,255,0.2)",
+                    ],
+                    boxShadow: [
+                      "0 0 0 rgba(255,255,255,0)",
+                      "0 0 20px rgba(255,255,255,0.35)",
+                      "0 0 8px rgba(255,255,255,0.16)",
+                    ],
+                  }}
+                  transition={{
+                    duration: 1.4,
+                    delay: i * 0.1,
+                    ease: "easeOut",
+                  }}
+                >
+                  <motion.div
+                    className="text-white/80"
+                    initial={{ scale: 1, opacity: 0.8 }}
+                    whileInView={{
+                      scale: [1, 1.08, 1],
+                      opacity: [0.8, 1, 0.88],
+                    }}
+                    transition={{
+                      duration: 1.4,
+                      delay: i * 0.1,
+                      ease: "easeInOut",
+                    }}
+                  >
                     {layer.icon}
-                  </div>
+                  </motion.div>
                   {/* Node pulse */}
-                  <div className="absolute inset-0 rounded-2xl border border-cyan-400/0 group-hover:border-cyan-400/50 group-hover:animate-ping opacity-20" />
-                </div>
+                  <motion.div
+                    className="absolute inset-0 rounded-2xl border border-white/0"
+                    initial={{ opacity: 0 }}
+                    whileInView={{
+                      opacity: [0, 0.35, 0],
+                      scale: [1, 1.06, 1.1],
+                    }}
+                    transition={{
+                      duration: 1.2,
+                      delay: i * 0.1,
+                      ease: "easeOut",
+                    }}
+                  />
+                </motion.div>
 
                 {/* Text Info */}
                 <div className="flex flex-col">
-                  <h3 className="vizhi-card-title text-white text-xl md:text-2xl font-bold tracking-tight mb-1 group-hover:text-cyan-100 transition-colors duration-300">
+                  <motion.h3
+                    className="vizhi-card-title text-white text-xl md:text-2xl font-bold tracking-tight mb-1"
+                    initial={{
+                      color: "rgba(255,255,255,0.9)",
+                      textShadow: "0 0 0 rgba(255,255,255,0)",
+                    }}
+                    whileInView={{
+                      color: [
+                        "rgba(255,255,255,0.9)",
+                        "rgba(255,255,255,1)",
+                        "rgba(255,255,255,0.95)",
+                      ],
+                      textShadow: [
+                        "0 0 0 rgba(255,255,255,0)",
+                        "0 0 12px rgba(255,255,255,0.35)",
+                        "0 0 4px rgba(255,255,255,0.1)",
+                      ],
+                    }}
+                    transition={{
+                      duration: 1.4,
+                      delay: i * 0.1,
+                      ease: "easeOut",
+                    }}
+                  >
                     {layer.title}
-                  </h3>
+                  </motion.h3>
                   <p className="vizhi-card-copy text-white/50 text-sm md:text-base font-light tracking-wide">
                     {layer.desc}
                   </p>
@@ -100,7 +170,7 @@ export default function ArchitectureSection() {
           </div>
           <h2 className="vizhi-section-title text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tighter text-white leading-tight mt-1">
             Built as a <br className="hidden md:block" />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-400 drop-shadow-sm">
+            <span className="nitro-text nitro-text-soft drop-shadow-sm">
               Platform
             </span>
           </h2>

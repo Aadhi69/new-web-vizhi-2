@@ -41,11 +41,13 @@ export default function BatterySection() {
         >
           <div className="vizhi-kicker flex items-center gap-4 text-cyan-400 font-medium tracking-wide text-sm bg-cyan-950/30 w-fit px-4 py-2 rounded-full border border-cyan-500/20">
             <Zap size={16} />
-            <span>Patented Power System</span>
+            <span className="nitro-text nitro-text-soft">
+              Patented Power System
+            </span>
           </div>
           <h2 className="vizhi-section-title text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tighter text-white mt-1">
             Zero Downtime{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-500 via-orange-400 to-green-500">
+            <span className="text-transparent bg-clip-text bg-linear-to-r from-red-500 via-orange-400 to-green-500">
               Power
             </span>
           </h2>
@@ -78,11 +80,13 @@ export default function BatterySection() {
         </motion.div>
 
         {/* Animation Display */}
-        <div className="relative glass-panel rounded-[2rem] p-12 aspect-square flex items-center justify-center overflow-hidden">
+        <div className="relative glass-panel rounded-4xl p-12 aspect-square flex items-center justify-center overflow-hidden">
           {/* HUD overlay indicating continuous run state */}
           <div className="absolute top-6 left-6 flex items-center gap-2">
             <div className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse text-glow" />
-            <span className="text-cyan-400 text-xs font-mono">SYS_RUNNING</span>
+            <span className="nitro-text nitro-text-strong text-xs font-mono tracking-wider">
+              SYS_RUNNING
+            </span>
           </div>
 
           {/* Battery Bay */}
@@ -93,7 +97,7 @@ export default function BatterySection() {
                 y: slideProgress,
                 opacity: useTransform(scrollYProgress, [0.15, 0.3], [1, 0]),
               }}
-              className="w-full flex-grow bg-white/5 rounded-xl flex flex-col justify-end p-2 border border-white/5 relative items-center"
+              className="w-full grow bg-white/5 rounded-xl flex flex-col justify-end p-2 border border-white/5 relative items-center"
             >
               <Battery size={24} className="text-white/30 absolute top-4" />
               <motion.div

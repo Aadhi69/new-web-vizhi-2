@@ -164,3 +164,73 @@ body::-webkit-scrollbar {
 .will-change-transform {
   will-change: transform;
 }
+
+@keyframes nitro-shimmer {
+  0% {
+    background-position: 0% 50%;
+    filter: brightness(0.95);
+  }
+  50% {
+    background-position: 100% 50%;
+    filter: brightness(1.1);
+  }
+  100% {
+    background-position: 0% 50%;
+    filter: brightness(0.95);
+  }
+}
+
+@keyframes nitro-glow {
+  0%,
+  100% {
+    text-shadow:
+      0 0 4px rgba(255, 255, 255, 0.35),
+      0 0 10px rgba(255, 255, 255, 0.18);
+  }
+  50% {
+    text-shadow:
+      0 0 8px rgba(255, 255, 255, 0.55),
+      0 0 18px rgba(255, 255, 255, 0.32);
+  }
+}
+
+.nitro-text {
+  background-image: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.38) 0%,
+    rgba(255, 255, 255, 0.9) 25%,
+    rgba(255, 255, 255, 0.52) 50%,
+    rgba(255, 255, 255, 0.96) 75%,
+    rgba(255, 255, 255, 0.42) 100%
+  );
+  background-size: 260% 260%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  will-change: background-position, filter, text-shadow;
+  animation:
+    nitro-shimmer 3.2s ease-in-out infinite,
+    nitro-glow 2.2s ease-in-out infinite;
+}
+
+.nitro-text-soft {
+  opacity: 0.9;
+  letter-spacing: 0.06em;
+  animation-duration: 3.6s, 2.8s;
+}
+
+.nitro-text-strong {
+  opacity: 1;
+  animation-duration: 2.7s, 1.8s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nitro-text,
+  .nitro-text-soft,
+  .nitro-text-strong {
+    animation: none;
+    background-position: 50% 50%;
+    text-shadow: 0 0 4px rgba(255, 255, 255, 0.25);
+  }
+}

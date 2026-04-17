@@ -22,7 +22,7 @@ export default function VisionSection() {
     >
       {/* Ambient Global Glow */}
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-0">
-        <div className="w-[800px] h-[800px] bg-cyan-900/10 rounded-full blur-[150px] mix-blend-screen" />
+        <div className="w-200 h-200 bg-cyan-900/10 rounded-full blur-[150px] mix-blend-screen" />
       </div>
 
       <motion.div
@@ -34,7 +34,8 @@ export default function VisionSection() {
         className="max-w-4xl px-6 relative z-10 w-full flex flex-col items-center justify-center mt-8 sm:mt-10 md:mt-12 gap-6 sm:gap-7 md:gap-8"
       >
         <h2 className="vizhi-section-title text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tighter text-white">
-          Step Into the Future
+          Step Into the{" "}
+          <span className="nitro-text nitro-text-soft">Future</span>
         </h2>
         <Link
           href="/contact"
