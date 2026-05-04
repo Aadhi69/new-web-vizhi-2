@@ -5,34 +5,52 @@ import { useRef } from "react";
 import Link from "next/link";
 
 export default function VisionSection() {
-    const containerRef = useRef<HTMLDivElement>(null);
-    const { scrollYProgress } = useScroll({
-        target: containerRef,
-        offset: ["start center", "center start"],
-    });
+  const containerRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start center", "center start"],
+  });
 
-    const blurAmount = useTransform(scrollYProgress, [0, 0.5], [10, 0]);
-    const opacityAmount = useTransform(scrollYProgress, [0, 0.5], [0.1, 1]);
-    const scaleAmount = useTransform(scrollYProgress, [0, 0.5], [0.9, 1]);
+  const blurAmount = useTransform(scrollYProgress, [0, 0.5], [10, 0]);
+  const opacityAmount = useTransform(scrollYProgress, [0, 0.5], [0.1, 1]);
+  const scaleAmount = useTransform(scrollYProgress, [0, 0.5], [0.9, 1]);
 
-    return (
-        <section ref={containerRef} className="py-64 bg-[#050505] relative flex flex-col items-center justify-center text-center overflow-hidden">
-            {/* Ambient Global Glow */}
-            <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-0">
-                <div className="w-[800px] h-[800px] bg-cyan-900/10 rounded-full blur-[150px] mix-blend-screen" />
-            </div>
+  return (
+    <section
+      id="vision"
+      ref={containerRef}
+      aria-label="Vizhi Vision for the Future"
+      className="section bg-[var(--surface-deep)] relative flex flex-col items-center justify-center text-center overflow-hidden scroll-mt-28"
+    >
+      {/* Atmosphere glow */}
+      <div
+        className="absolute inset-0 flex items-center justify-center pointer-events-none z-0"
+        style={{
+          background:
+            "radial-gradient(circle 800px at 50% 50%, rgba(255,255,255,0.05) 0%, transparent 70%)",
+        }}
+      />
 
-            <motion.div
-                style={{ filter: `blur(${blurAmount}px)`, opacity: opacityAmount, scale: scaleAmount }}
-                className="max-w-4xl px-6 relative z-10 w-full flex flex-col items-center justify-center mt-12 gap-8"
-            >
-                <h2 className="text-5xl md:text-7xl font-bold tracking-tighter text-white">
-                    Step Into the Future
-                </h2>
-                <Link href="/contact" className="px-8 py-4 rounded-full bg-cyan-500 hover:bg-cyan-400 text-black font-semibold tracking-wide hover:scale-105 transition-all duration-300 shadow-[0_0_30px_rgba(0,229,255,0.3)] text-2xl">
-                    Contact Us
-                </Link>
-            </motion.div>
-        </section>
-    );
+      <motion.div
+        style={{
+          filter: `blur(${blurAmount}px)`,
+          opacity: opacityAmount,
+          scale: scaleAmount,
+        }}
+        className="max-w-[var(--max-width-narrow)] px-[var(--page-gutter)] relative z-10 w-full flex flex-col items-center justify-center mt-6 sm:mt-12 gap-[var(--space-sm)] sm:gap-[var(--space-md)] reveal"
+      >
+        <div className="section-label justify-center">
+          <span>The Next Interface</span>
+        </div>
+        <h2 className="text-[clamp(36px,6vw,72px)] font-[800] tracking-[-0.04em] text-[var(--text-primary)] leading-[1.1]">
+          Step Into the <span style={{ color: "var(--accent)" }}>Future</span>
+        </h2>
+        <div className="flex flex-row flex-wrap justify-center gap-3 sm:gap-[var(--space-sm)] mt-[var(--space-sm)] sm:mt-[var(--space-md)]">
+          <Link href="/contact" className="btn-primary">
+            Contact Us
+          </Link>
+        </div>
+      </motion.div>
+    </section>
+  );
 }

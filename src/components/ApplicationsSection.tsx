@@ -1,188 +1,238 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { Activity, Cog, Briefcase, GraduationCap, Map, ArrowRight, HeartPulse, ShieldCheck, Database, Focus, Navigation } from "lucide-react";
+import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
+import type { MotionStyle } from "framer-motion";
+import { useRef } from "react";
+import type { PointerEvent } from "react";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import { INDUSTRIES } from "@/lib/industries";
+
+function IndustryParallaxCard({
+  industry,
+  index,
+}: {
+  industry: (typeof INDUSTRIES)[0];
+  index: number;
+}) {
+  const pointerX = useMotionValue(0);
+  const pointerY = useMotionValue(0);
+  const rotateX = useSpring(useTransform(pointerY, [-0.5, 0.5], [8, -8]), {
+    stiffness: 160,
+    damping: 18,
+  });
+  const rotateY = useSpring(useTransform(pointerX, [-0.5, 0.5], [-10, 10]), {
+    stiffness: 160,
+    damping: 18,
+  });
+  const sheenX = useSpring(
+    useTransform(pointerX, [-0.5, 0.5], ["18%", "82%"]),
+    { stiffness: 130, damping: 20 },
+  );
+  const layerX = useSpring(useTransform(pointerX, [-0.5, 0.5], [-12, 12]), {
+    stiffness: 130,
+    damping: 20,
+  });
+  const layerY = useSpring(useTransform(pointerY, [-0.5, 0.5], [-12, 12]), {
+    stiffness: 130,
+    damping: 20,
+  });
+  const hudX = useTransform(layerX, (value) => value * 0.5);
+  const hudY = useTransform(layerY, (value) => value * 0.5);
+  const sheenBackground = useTransform(
+    sheenX,
+    (x) =>
+      `radial-gradient(circle at ${x} 0%, rgba(255,255,255,0.18), transparent 38%)`,
+  );
+  const cardStyle = {
+    rotateX,
+    rotateY,
+    transformStyle: "preserve-3d",
+  } as MotionStyle;
+
+  function handlePointerMove(event: PointerEvent<HTMLDivElement>) {
+    const rect = event.currentTarget.getBoundingClientRect();
+    pointerX.set((event.clientX - rect.left) / rect.width - 0.5);
+    pointerY.set((event.clientY - rect.top) / rect.height - 0.5);
+  }
+
+  const router = useRouter();
+
+  function handlePointerLeave() {
+    pointerX.set(0);
+    pointerY.set(0);
+  }
+
+  function handleKeyDown(event: React.KeyboardEvent) {
+    if (event.key === "Enter" || event.key === " ") {
+      event.preventDefault();
+      router.push(`/try-on/${industry.title.toLowerCase()}`);
+    }
+  }
+
+  return (
+    <div
+      className="snap-center relative w-[300px] h-[400px] sm:w-[350px] sm:h-[450px] shrink-0"
+      style={{ perspective: "1000px" }}
+      onPointerMove={handlePointerMove}
+      onPointerLeave={handlePointerLeave}
+    >
+      <motion.div
+        style={cardStyle}
+        initial="rest"
+        whileHover="hover"
+        whileFocus="hover"
+        onKeyDown={handleKeyDown}
+        onClick={() => router.push(`/try-on/${industry.title.toLowerCase()}`)}
+        role="button"
+        aria-label={`Open ${industry.title} try-on`}
+        tabIndex={0}
+        variants={{
+          rest: { y: 0, scale: 1 },
+          hover: { y: -6, scale: 1.025 },
+        }}
+        transition={{ type: "spring", stiffness: 160, damping: 18 }}
+        className="group relative h-full w-full cursor-pointer overflow-hidden rounded-[var(--radius-md)] border border-white/10 bg-black p-[var(--space-md)] shadow-[0_20px_70px_rgba(0,0,0,0.78)] transition-colors duration-[var(--duration-base)] hover:border-[var(--border-hover)] hover:shadow-[var(--shadow-glow)] focus-visible:border-[var(--border-hover)] focus-visible:shadow-[var(--shadow-glow)]"
+      >
+        <motion.div
+          className="absolute inset-0 opacity-0 group-hover:opacity-75 group-focus-visible:opacity-75 transition-opacity duration-300"
+          style={{ background: sheenBackground, transform: "translateZ(1px)" }}
+        />
+        <div
+          className="absolute inset-0 bg-black opacity-100 group-hover:opacity-80 group-focus-visible:opacity-80 transition-opacity duration-300"
+          style={{ transform: "translateZ(2px)" }}
+        />
+        <div
+          className={`absolute top-0 right-0 w-64 h-64 bg-gradient-to-bl ${industry.color} opacity-0 group-hover:opacity-20 group-focus-visible:opacity-20 rounded-full blur-[60px] translate-x-1/2 -translate-y-1/2 transition-opacity duration-300`}
+        />
+
+        <motion.div
+          variants={{
+            rest: { opacity: 0, y: 0 },
+            hover: { opacity: 0, y: -10 },
+          }}
+          transition={{ duration: 0.2, ease: [0.25, 0.46, 0.45, 0.94] }}
+          className="absolute inset-0 z-30 flex items-center justify-center p-8 text-center pointer-events-none"
+          style={{ transform: "translateZ(90px)" }}
+        />
+
+        <motion.div
+          variants={{
+            rest: { opacity: 1, y: 0 },
+            hover: { opacity: 1, y: 0 },
+          }}
+          transition={{ duration: 0.28, ease: [0.25, 0.46, 0.45, 0.94] }}
+          className="absolute inset-0 z-10 flex flex-col items-center justify-start p-6 pb-32 pt-8 pointer-events-none"
+          style={{ x: hudX, y: hudY, transform: "translateZ(46px)" }}
+        >
+          <div className="absolute top-4 left-4 right-4 bottom-32 rounded-[2rem] border border-[#00ff44]/10 bg-[#00ff44]/5 flex items-center justify-center">
+            {industry.hud}
+          </div>
+        </motion.div>
+
+        <motion.div
+          className="absolute bottom-[var(--space-md)] left-[var(--space-md)] right-[var(--space-md)] z-20 pointer-events-none"
+          style={{ x: layerX, y: layerY, transform: "translateZ(78px)" }}
+        >
+          <motion.div
+            variants={{
+              rest: { opacity: 1, y: 0 },
+              hover: { opacity: 1, y: 0 },
+            }}
+            transition={{ duration: 0.24, ease: [0.25, 0.46, 0.45, 0.94] }}
+            className="rounded-[var(--radius-md)] border border-[var(--border-subtle)] bg-[var(--surface-raised)] p-[var(--space-md)] shadow-2xl backdrop-blur-xl"
+          >
+            <div className="flex items-center gap-[var(--space-sm)] mb-[var(--space-2xs)]">
+              <div className="bg-[var(--accent-dim)] w-10 h-10 shrink-0 flex items-center justify-center rounded-[var(--radius-sm)] text-[var(--accent)]">
+                {industry.icon}
+              </div>
+              <h3 className="text-[16px] font-[600] text-[var(--text-primary)] leading-tight">
+                {industry.title}
+              </h3>
+            </div>
+            <p className="text-[14px] text-[var(--text-body)] leading-[1.65] font-[400] mb-4">
+              {industry.desc}
+            </p>
+            <div className="flex justify-end pointer-events-auto">
+              <Link
+                href={`/try-on/${industry.title.toLowerCase()}`}
+                className="btn-ghost text-sm"
+              >
+                Try On
+              </Link>
+            </div>
+          </motion.div>
+        </motion.div>
+      </motion.div>
+    </div>
+  );
+}
 
 export default function ApplicationsSection() {
-    const industries = [
-        {
-            title: "Healthcare",
-            desc: "Real-time patient intelligence delivered directly into a clinician’s field of view.",
-            icon: <Activity />,
-            color: "from-blue-500 to-cyan-500",
-            hud: (
-                <div className="flex flex-col gap-4 font-mono text-[#00ff44] text-shadow-green w-full">
-                    <div className="flex justify-between w-full text-[10px] sm:text-xs">
-                        <span>14:00</span>
-                        <span>100% 🔋</span>
-                    </div>
-                    <div className="flex flex-col gap-1 items-center justify-center py-4">
-                        <HeartPulse size={36} className="text-[#00ff44]" />
-                        <div className="text-3xl font-bold tracking-tight">85 BPM</div>
-                        <div className="text-xs">O2: 98% | BP: 120/80</div>
-                    </div>
-                    <div className="text-[10px] text-center mt-auto uppercase">Vitals Stable</div>
-                </div>
-            )
-        },
-        {
-            title: "Manufacturing",
-            desc: "Contextual instructions and diagnostics delivered directly to workers.",
-            icon: <Cog />,
-            color: "from-orange-500 to-red-500",
-            hud: (
-                <div className="flex flex-col gap-4 font-mono text-[#00ff44] text-shadow-green w-full">
-                    <div className="flex justify-between w-full text-[10px] sm:text-xs">
-                        <span>14:45</span>
-                        <span>100% 🔋</span>
-                    </div>
-                    <div className="flex flex-col gap-1 items-center justify-center py-4">
-                        <ShieldCheck size={36} className="text-[#00ff44]" />
-                        <div className="text-3xl font-bold tracking-tight">45 Nm</div>
-                        <div className="text-xs">TORQUE DELIVERED</div>
-                    </div>
-                    <div className="text-[10px] text-center mt-auto uppercase">Temp: 85°C | Optimal</div>
-                </div>
-            )
-        },
-        {
-            title: "Enterprise Operations",
-            desc: "Live operational data integrated with physical facilities.",
-            icon: <Briefcase />,
-            color: "from-purple-500 to-pink-500",
-            hud: (
-                <div className="flex flex-col gap-4 font-mono text-[#00ff44] text-shadow-green w-full">
-                    <div className="flex justify-between w-full text-[10px] sm:text-xs">
-                        <span>09:15</span>
-                        <span>100% 🔋</span>
-                    </div>
-                    <div className="flex flex-col gap-1 items-center justify-center py-4">
-                        <Database size={36} className="text-[#00ff44]" />
-                        <div className="text-3xl font-bold tracking-tight">94%</div>
-                        <div className="text-xs">EFFICIENCY RATING</div>
-                    </div>
-                    <div className="text-[10px] text-center mt-auto uppercase">Supply Chain: Nominal</div>
-                </div>
-            )
-        },
-        {
-            title: "Education",
-            desc: "Holographic interaction with complex academic subjects.",
-            icon: <GraduationCap />,
-            color: "from-green-500 to-emerald-500",
-            hud: (
-                <div className="flex flex-col gap-4 font-mono text-[#00ff44] text-shadow-green w-full">
-                    <div className="flex justify-between w-full text-[10px] sm:text-xs">
-                        <span>11:30</span>
-                        <span>100% 🔋</span>
-                    </div>
-                    <div className="flex flex-col gap-1 items-center justify-center py-4">
-                        <Focus size={36} className="text-[#00ff44]" />
-                        <div className="text-3xl font-bold tracking-tight">2.5X</div>
-                        <div className="text-xs">ZOOM MULTIPLIER</div>
-                    </div>
-                    <div className="text-[10px] text-center mt-auto uppercase">Module: Cortex Anatomy</div>
-                </div>
-            )
-        },
-        {
-            title: "Field Services",
-            desc: "On-site schematic overlays for remote engineering.",
-            icon: <Map />,
-            color: "from-yellow-500 to-amber-500",
-            hud: (
-                <div className="flex flex-col gap-4 font-mono text-[#00ff44] text-shadow-green w-full">
-                    <div className="flex justify-between w-full text-[10px] sm:text-xs">
-                        <span>16:00</span>
-                        <span>100% 🔋</span>
-                    </div>
-                    <div className="flex flex-col gap-1 items-center justify-center py-4">
-                        <div className="flex items-center gap-4">
-                            <ArrowRight size={48} className="text-[#00ff44]" />
-                            <div className="text-4xl font-bold tracking-tight">200m</div>
-                        </div>
-                        <div className="text-sm mt-2">Enter Yu Road</div>
-                    </div>
-                    <div className="text-[10px] text-center mt-auto uppercase flex justify-between w-full">
-                        <span>16:45 ARRIVED</span>
-                        <span>5 KM/H</span>
-                        <span>1.5 KM</span>
-                    </div>
-                </div>
-            )
-        },
-        {
-            title: "Defence",
-            desc: "Tactical overlays and situational awareness on the battlefield.",
-            icon: <ShieldCheck />,
-            color: "from-gray-500 to-slate-500",
-            hud: (
-                <div className="flex flex-col gap-4 font-mono text-[#00ff44] text-shadow-green w-full">
-                    <div className="flex justify-between w-full text-[10px] sm:text-xs">
-                        <span>14:45</span>
-                        <span>100% 🔋</span>
-                    </div>
-                    <div className="flex flex-col gap-1 items-center justify-center py-4">
-                        <ShieldCheck size={36} className="text-[#00ff44]" />
-                        <div className="text-3xl font-bold tracking-tight">ACTIVE</div>
-                        <div className="text-xs">DEFENCE SHIELD</div>
-                    </div>
-                    <div className="text-[10px] text-center mt-auto uppercase">Status: Secure</div>
-                </div>
-            )
-        },
-    ];
+  const carouselRef = useRef<HTMLDivElement>(null);
 
-    return (
-        <section className="py-32 bg-[#050505] relative overflow-hidden">
-            {/* Background radial gradient */}
-            <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
-            <div className="absolute bottom-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+  function scrollCarousel(direction: "left" | "right") {
+    carouselRef.current?.scrollBy({
+      left: direction === "left" ? -380 : 380,
+      behavior: "smooth",
+    });
+  }
 
-            <div className="max-w-7xl mx-auto px-6 lg:px-12 z-10 relative text-center mb-24">
-                <h2 className="text-4xl md:text-6xl font-bold tracking-tighter text-white mb-6">
-                    Where Intelligence Meets <span className="text-white/40 italic">Reality</span>
-                </h2>
-                <p className="text-xl text-white/50 font-light max-w-2xl mx-auto">
-                    Built for industries that demand perfection.
-                </p>
-            </div>
+  return (
+    <section
+      id="applications"
+      aria-label="Where Intelligence Meets Reality"
+      className="section bg-black relative overflow-hidden scroll-mt-28"
+    >
+      <div className="container z-10 relative text-center mb-[var(--space-lg)] sm:mb-[var(--space-2xl)] flex flex-col items-center reveal">
+        <div className="section-label justify-center">
+          <span>Use Cases</span>
+        </div>
+        <h2 className="text-[clamp(28px,5vw,52px)] font-[700] tracking-[-0.03em] text-[var(--text-primary)] mb-[var(--space-2xs)] sm:mb-[var(--space-xs)]">
+          Where Intelligence Meets{" "}
+          <span style={{ color: "var(--accent)" }} className="italic">
+            Reality
+          </span>
+        </h2>
+        <p className="text-[14px] sm:text-[16px] md:text-[17px] text-[var(--text-body)] font-[400] max-w-[var(--max-width-text)] mx-auto mb-[var(--space-md)] sm:mb-[var(--space-lg)] leading-[1.65]">
+          Built for industries that demand perfection.
+        </p>
+      </div>
 
-            <div className="max-w-7xl mx-auto px-6 overflow-hidden pb-12">
-                <div
-                    className="flex gap-6 w-max animate-infinite-scroll will-change-transform"
-                >
-                    {[...industries, ...industries].map((ind, i) => (
-                        <motion.div
-                            key={i}
-                            whileHover={{ y: -10 }}
-                            className="snap-center relative w-[300px] h-[400px] sm:w-[350px] sm:h-[450px] glass-panel group rounded-[2rem] p-8 flex flex-col justify-end overflow-hidden cursor-pointer shrink-0"
-                        >
-                            {/* Overlay AR interface animation */}
-                            <div className="absolute inset-0 bg-black opacity-80 z-0 transition-opacity duration-500 group-hover:opacity-90" />
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
+        <button
+          type="button"
+          aria-label="Previous use cases"
+          onClick={() => scrollCarousel("left")}
+          className="absolute left-0 sm:left-2 top-1/2 z-20 flex h-9 sm:h-11 w-9 sm:w-11 -translate-y-1/2 items-center justify-center rounded-full border border-[var(--border-subtle)] bg-black/55 text-[var(--text-primary)] shadow-[var(--shadow-card)] backdrop-blur-md transition-colors hover:border-[var(--border-hover)]"
+        >
+          <ChevronLeft size={20} className="sm:w-[22px]" />
+        </button>
+        <button
+          type="button"
+          aria-label="Next use cases"
+          onClick={() => scrollCarousel("right")}
+          className="absolute right-0 sm:right-2 top-1/2 z-20 flex h-9 sm:h-11 w-9 sm:w-11 -translate-y-1/2 items-center justify-center rounded-full border border-[var(--border-subtle)] bg-black/55 text-[var(--text-primary)] shadow-[var(--shadow-card)] backdrop-blur-md transition-colors hover:border-[var(--border-hover)]"
+        >
+          <ChevronRight size={20} className="sm:w-[22px]" />
+        </button>
 
-                            <div className={`absolute top-0 right-0 w-64 h-64 bg-gradient-to-bl ${ind.color} opacity-5 rounded-full blur-[60px] translate-x-1/2 -translate-y-1/2 group-hover:opacity-20 transition-opacity duration-700`} />
-
-                            {/* Animated Inner Bright Green UI Overlay (Visible on Hover / subtle by default) */}
-                            <div className="absolute inset-0 z-10 flex flex-col items-center justify-center p-6 opacity-0 group-hover:opacity-100 transition-opacity duration-500 scale-95 group-hover:scale-100 ease-out pointer-events-none">
-                                {/* Subtle glowing lens effect behind the UI */}
-                                <div className="absolute inset-4 rounded-[2rem] border border-[#00ff44]/10 bg-[#00ff44]/5 flex items-center justify-center">
-                                    {ind.hud}
-                                </div>
-                            </div>
-
-                            {/* Standard Card Info (Fades out when hovered) */}
-                            <div className="z-20 relative group-hover:opacity-0 transition-opacity duration-300">
-                                <div className="bg-white/10 w-12 h-12 flex items-center justify-center rounded-xl mb-6 text-white transition-transform duration-500">
-                                    {ind.icon}
-                                </div>
-                                <h3 className="text-2xl font-bold text-white mb-2">{ind.title}</h3>
-                                <p className="text-sm text-white/50 leading-relaxed font-light">{ind.desc}</p>
-                            </div>
-                        </motion.div>
-                    ))}
-                </div>
-            </div>
-        </section>
-    );
+        <div
+          ref={carouselRef}
+          className="overflow-x-auto overflow-y-hidden applications-carousel no-scrollbar"
+        >
+          <div className="flex gap-6 w-max py-2">
+            {INDUSTRIES.map((ind, i) => (
+              <IndustryParallaxCard
+                key={`${ind.title}-${i}`}
+                industry={ind}
+                index={i}
+              />
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
 }
