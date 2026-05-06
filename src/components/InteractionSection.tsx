@@ -21,7 +21,7 @@ function RingModel() {
 
   return (
     <Center>
-      <primitive object={model} scale={0.16} rotation={[0.18, 0, 0]} />
+      <primitive object={model} scale={0.16} rotation={[0, 0, 0]} />
     </Center>
   );
 }
@@ -30,7 +30,9 @@ function RingViewer() {
   const [lowPowerMode, setLowPowerMode] = useState(false);
 
   useEffect(() => {
-    const mq = window.matchMedia("(max-width: 768px), (prefers-reduced-motion: reduce)");
+    const mq = window.matchMedia(
+      "(max-width: 768px), (prefers-reduced-motion: reduce)",
+    );
     const update = () => setLowPowerMode(mq.matches);
     update();
     mq.addEventListener("change", update);
@@ -45,9 +47,16 @@ function RingViewer() {
         performance={{ min: lowPowerMode ? 0.25 : 0.5 }}
         gl={{ antialias: !lowPowerMode, powerPreference: "high-performance" }}
       >
-        <PerspectiveCamera makeDefault position={[0, 0.2, 8]} fov={32} />
+        <PerspectiveCamera
+          makeDefault
+          position={[-6.1805, 0.3104, 5.07]}
+          fov={32}
+        />
         <ambientLight intensity={lowPowerMode ? 0.6 : 0.7} />
-        <directionalLight position={[3, 4, 5]} intensity={lowPowerMode ? 1.35 : 1.7} />
+        <directionalLight
+          position={[3, 4, 5]}
+          intensity={lowPowerMode ? 1.35 : 1.7}
+        />
         <Suspense fallback={null}>
           <Environment preset="city" />
           <RingModel />

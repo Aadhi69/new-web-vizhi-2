@@ -24,6 +24,29 @@ export type Industry = {
 
 export const INDUSTRIES: Industry[] = [
   {
+    title: "Defence",
+    desc: "Tactical and situational awareness on the battlefield.",
+    icon: <ShieldCheck />,
+    color: "from-gray-500 to-slate-500",
+    colorClass: "from-gray-600 to-slate-600",
+    hud: (
+      <div className="flex flex-col gap-4 font-mono text-[#00ff44] text-shadow-green w-full">
+        <div className="flex justify-between w-full text-[10px] sm:text-xs">
+          <span>14:45</span>
+          <span>100% 🔋</span>
+        </div>
+        <div className="flex flex-col gap-1 items-center justify-center py-4">
+          <ShieldCheck size={36} className="text-[#00ff44]" />
+          <div className="text-3xl font-bold tracking-tight">ACTIVE</div>
+          <div className="text-xs">DEFENCE SHIELD</div>
+        </div>
+        <div className="text-[10px] text-center mt-auto uppercase">
+          Status: Secure
+        </div>
+      </div>
+    ),
+  },
+  {
     title: "Healthcare",
     desc: "Real-time patient intelligence in clinician's field of view.",
     icon: <Activity />,
@@ -139,29 +162,6 @@ export const INDUSTRIES: Industry[] = [
           <span>16:45 ARRIVED</span>
           <span>5 KM/H</span>
           <span>1.5 KM</span>
-        </div>
-      </div>
-    ),
-  },
-  {
-    title: "Defence",
-    desc: "Tactical and situational awareness on the battlefield.",
-    icon: <ShieldCheck />,
-    color: "from-gray-500 to-slate-500",
-    colorClass: "from-gray-600 to-slate-600",
-    hud: (
-      <div className="flex flex-col gap-4 font-mono text-[#00ff44] text-shadow-green w-full">
-        <div className="flex justify-between w-full text-[10px] sm:text-xs">
-          <span>14:45</span>
-          <span>100% 🔋</span>
-        </div>
-        <div className="flex flex-col gap-1 items-center justify-center py-4">
-          <ShieldCheck size={36} className="text-[#00ff44]" />
-          <div className="text-3xl font-bold tracking-tight">ACTIVE</div>
-          <div className="text-xs">DEFENCE SHIELD</div>
-        </div>
-        <div className="text-[10px] text-center mt-auto uppercase">
-          Status: Secure
         </div>
       </div>
     ),

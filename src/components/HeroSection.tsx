@@ -45,10 +45,10 @@ export default function HeroSection() {
       id="hero"
       ref={containerRef}
       aria-label="Vizhi Hero Section"
-      className={`relative ${lowMotion ? "h-screen" : "h-[150vh] sm:h-[180vh] md:h-[200vh]"} bg-[var(--surface-deep)]`}
+      className={`relative ${lowMotion ? "h-screen" : "h-[180vh] sm:h-[180vh] md:h-[200vh]"} bg-[var(--surface-deep)]`}
     >
       {/* Sticky container to hold the animating elements */}
-      <div className="sticky top-0 h-screen w-full flex items-center justify-center overflow-hidden">
+      <div className="sticky top-0 h-[100dvh] sm:h-screen w-full flex items-center justify-center overflow-hidden">
         {/* Scene 3 */}
         <motion.div
           style={lowMotion ? { opacity: 0 } : { opacity: scene3Opacity, y: scene3Y, scale: scene3Scale }}
@@ -185,7 +185,7 @@ export default function HeroSection() {
             />
           </div>
 
-          <h2 className="text-[clamp(30px,10vw,56px)] sm:text-[clamp(56px,11vw,144px)] font-[900] leading-none tracking-[-0.05em] text-[var(--text-primary)] z-20">
+          <h2 className="text-[clamp(24px,8vw,48px)] sm:text-[clamp(56px,11vw,144px)] font-[900] leading-tight sm:leading-none tracking-[-0.05em] text-[var(--text-primary)] z-20 px-6">
             Introducing Vizhi
           </h2>
         </motion.div>
@@ -193,9 +193,9 @@ export default function HeroSection() {
         {/* Scene 4 - Final Hero Output */}
         <motion.div
           style={lowMotion ? { opacity: 1, y: 0 } : { opacity: scene4Opacity, y: scene4Y }}
-          className="absolute z-20 w-full max-w-5xl px-4 sm:px-6 mx-auto text-center flex flex-col items-center"
+          className="absolute z-20 w-full max-w-5xl px-6 sm:px-8 mx-auto text-center flex flex-col items-center"
         >
-          <h1 className="text-[clamp(32px,7vw,88px)] font-[800] leading-none tracking-[-0.04em] text-[var(--text-primary)] mb-4 sm:mb-6 uppercase">
+          <h1 className="text-[clamp(28px,7vw,72px)] sm:text-[clamp(32px,7vw,88px)] font-[800] leading-tight sm:leading-none tracking-[-0.04em] text-[var(--text-primary)] mb-4 sm:mb-6 uppercase">
             <span style={{ color: "var(--accent)" }}>Spatial</span>{" "}
             <br className="hidden md:block" /> Intelligence
           </h1>
