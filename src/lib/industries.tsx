@@ -25,72 +25,31 @@ export type Industry = {
 export const INDUSTRIES: Industry[] = [
   {
     title: "Healthcare",
-    desc: "Real-time patient intelligence delivered directly into a clinician's field of view.",
+    desc: "Real-time patient intelligence in clinician's field of view.",
     icon: <Activity />,
     color: "from-blue-500 to-cyan-500",
     colorClass: "from-blue-600 to-cyan-600",
     hud: (
-      <div className="flex flex-col gap-4 font-mono w-full">
-        {/* Header */}
-        <div className="flex justify-between w-full text-[10px] sm:text-xs border-b border-[#00ff44]/30 pb-2 text-[#00ff44]">
-          <span>PATIENT: J. SMITH</span>
-          <span>ID: HC-2847</span>
+      <div className="flex flex-col gap-4 font-mono text-[#00ff44] text-shadow-green w-full">
+        <div className="flex justify-between w-full text-[10px] sm:text-xs">
+          <span>22:07</span>
+          <span>100% 🔋</span>
         </div>
-
-        {/* Primary Metrics */}
-        <div className="flex flex-col gap-2 items-center justify-center py-2">
-          <HeartPulse size={40} className="text-[#00ff44] animate-pulse" />
-          <div className="text-5xl font-extrabold tracking-tight">85 BPM</div>
-          <div className="text-xs text-[rgba(0,255,68,0.7)]">Heart Rate</div>
+        <div className="flex flex-col gap-1 items-center justify-center py-4">
+          <HeartPulse size={36} className="text-[#00ff44] animate-pulse" />
+          <div className="text-3xl font-bold tracking-tight">85 BPM</div>
+          <div className="text-xs">HEART RATE</div>
         </div>
-
-        {/* Essential Vitals Grid */}
-        <div className="grid grid-cols-2 gap-2 text-[10px] sm:text-xs">
-          <div className="hud-stat-card">
-            <div className="opacity-60 text-[10px] text-[rgba(0,255,68,0.7)]">
-              BP
-            </div>
-            <div className="font-semibold">120/80</div>
-            <div className="opacity-40 text-[9px]">mmHg</div>
-          </div>
-          <div className="hud-stat-card">
-            <div className="opacity-60 text-[10px] text-[rgba(0,255,68,0.7)]">
-              O₂ SAT
-            </div>
-            <div className="font-semibold">98%</div>
-            <div className="opacity-40 text-[9px]">SpO₂</div>
-          </div>
-          <div className="hud-stat-card">
-            <div className="opacity-60 text-[10px] text-[rgba(0,255,68,0.7)]">
-              TEMP
-            </div>
-            <div className="font-semibold">37.2°C</div>
-            <div className="opacity-40 text-[9px]">Normal</div>
-          </div>
-          <div className="hud-stat-card">
-            <div className="opacity-60 text-[10px] text-[rgba(0,255,68,0.7)]">
-              RR
-            </div>
-            <div className="font-semibold">16</div>
-            <div className="opacity-40 text-[9px]">breaths/min</div>
-          </div>
+        <div className="text-[10px] text-center mt-auto uppercase">
+          BP: 120/80 | SPO2: 98%
         </div>
-
-        {/* Status */}
-        <div className="text-[10px] text-center pt-2 border-t border-[#00ff44]/30">
-          <span className="inline-block px-2 py-1 bg-[#00ff44]/10 rounded">
-            ✓ Vitals Stable
-          </span>
-        </div>
-
-        {/* Healthcare Applications removed per request */}
       </div>
     ),
     textureUrl: "/healthcareimg.png",
   },
   {
     title: "Manufacturing",
-    desc: "Contextual instructions and diagnostics delivered directly to workers.",
+    desc: "Contextual instructions delivered directly to workers.",
     icon: <Cog />,
     color: "from-orange-500 to-red-500",
     colorClass: "from-orange-600 to-red-600",
@@ -186,7 +145,7 @@ export const INDUSTRIES: Industry[] = [
   },
   {
     title: "Defence",
-    desc: "Tactical overlays and situational awareness on the battlefield.",
+    desc: "Tactical and situational awareness on the battlefield.",
     icon: <ShieldCheck />,
     color: "from-gray-500 to-slate-500",
     colorClass: "from-gray-600 to-slate-600",

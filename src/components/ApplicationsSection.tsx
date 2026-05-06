@@ -73,7 +73,7 @@ function IndustryParallaxCard({
 
   return (
     <div
-      className="snap-center relative w-[300px] h-[400px] sm:w-[350px] sm:h-[450px] shrink-0"
+      className="snap-center relative h-[460px] w-[300px] shrink-0 sm:h-[510px] sm:w-[350px]"
       style={{ perspective: "1000px" }}
       onPointerMove={handlePointerMove}
       onPointerLeave={handlePointerLeave}
@@ -93,7 +93,7 @@ function IndustryParallaxCard({
           hover: { y: -6, scale: 1.025 },
         }}
         transition={{ type: "spring", stiffness: 160, damping: 18 }}
-        className="group relative h-full w-full cursor-pointer overflow-hidden rounded-[var(--radius-md)] border border-white/10 bg-black p-[var(--space-md)] shadow-[0_20px_70px_rgba(0,0,0,0.78)] transition-colors duration-[var(--duration-base)] hover:border-[var(--border-hover)] hover:shadow-[var(--shadow-glow)] focus-visible:border-[var(--border-hover)] focus-visible:shadow-[var(--shadow-glow)]"
+        className="group relative flex h-full w-full cursor-pointer flex-col overflow-hidden rounded-[var(--radius-md)] border border-white/10 bg-black p-[var(--space-sm)] sm:p-[var(--space-md)] shadow-[0_20px_70px_rgba(0,0,0,0.78)] transition-colors duration-[var(--duration-base)] hover:border-[var(--border-hover)] hover:shadow-[var(--shadow-glow)] focus-visible:border-[var(--border-hover)] focus-visible:shadow-[var(--shadow-glow)]"
       >
         <motion.div
           className="absolute inset-0 opacity-0 group-hover:opacity-75 group-focus-visible:opacity-75 transition-opacity duration-300"
@@ -123,16 +123,16 @@ function IndustryParallaxCard({
             hover: { opacity: 1, y: 0 },
           }}
           transition={{ duration: 0.28, ease: [0.25, 0.46, 0.45, 0.94] }}
-          className="absolute inset-0 z-10 flex flex-col items-center justify-start p-6 pb-32 pt-8 pointer-events-none"
+          className="relative z-10 flex h-[200px] flex-col items-center justify-start p-4 pt-6 pointer-events-none sm:h-[230px] sm:p-6 sm:pt-8"
           style={{ x: hudX, y: hudY, transform: "translateZ(46px)" }}
         >
-          <div className="absolute top-4 left-4 right-4 bottom-32 rounded-[2rem] border border-[#00ff44]/10 bg-[#00ff44]/5 flex items-center justify-center">
+          <div className="relative h-full w-full rounded-[2rem] border border-[#00ff44]/10 bg-[#00ff44]/5 flex items-center justify-center pb-6">
             {industry.hud}
           </div>
         </motion.div>
 
         <motion.div
-          className="absolute bottom-[var(--space-md)] left-[var(--space-md)] right-[var(--space-md)] z-20 pointer-events-none"
+          className="relative z-20 mt-[var(--space-sm)] flex-1 pointer-events-none sm:mt-[var(--space-md)]"
           style={{ x: layerX, y: layerY, transform: "translateZ(78px)" }}
         >
           <motion.div
@@ -141,9 +141,9 @@ function IndustryParallaxCard({
               hover: { opacity: 1, y: 0 },
             }}
             transition={{ duration: 0.24, ease: [0.25, 0.46, 0.45, 0.94] }}
-            className="rounded-[var(--radius-md)] border border-[var(--border-subtle)] bg-[var(--surface-raised)] p-[var(--space-md)] shadow-2xl backdrop-blur-xl"
+            className="flex h-full min-h-[170px] flex-col rounded-[var(--radius-md)] border border-[var(--border-subtle)] bg-[var(--surface-raised)] p-[var(--space-sm)] pb-6 sm:p-[var(--space-md)] shadow-2xl backdrop-blur-xl"
           >
-            <div className="flex items-center gap-[var(--space-sm)] mb-[var(--space-2xs)]">
+            <div className="mb-[var(--space-2xs)] flex items-center gap-[var(--space-sm)]">
               <div className="bg-[var(--accent-dim)] w-10 h-10 shrink-0 flex items-center justify-center rounded-[var(--radius-sm)] text-[var(--accent)]">
                 {industry.icon}
               </div>
@@ -151,10 +151,10 @@ function IndustryParallaxCard({
                 {industry.title}
               </h3>
             </div>
-            <p className="text-[14px] text-[var(--text-body)] leading-[1.65] font-[400] mb-4">
+            <p className="mb-4 flex-1 text-[13px] sm:text-[14px] text-[var(--text-body)] leading-[1.65] font-[400] text-left">
               {industry.desc}
             </p>
-            <div className="flex justify-end pointer-events-auto">
+            <div className="flex justify-end pointer-events-auto pt-1">
               <Link
                 href={`/try-on/${industry.title.toLowerCase()}`}
                 className="btn-ghost text-sm"
