@@ -32,7 +32,8 @@ export default function TryOnPage({
   }, []);
 
   const handleExit = () => {
-    router.push("/#applications");
+    // router.back() ensures we return to the exact scroll position on the previous page
+    router.back();
   };
 
   return (

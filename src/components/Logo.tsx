@@ -52,43 +52,39 @@ export default function Logo() {
 
   return (
     <>
-      <header aria-label="Site Header">
+      <header aria-label="Site Header" className="fixed top-6 left-1/2 -translate-x-1/2 z-[100] w-[95%] max-w-[1100px]">
         <nav
-          className={`fixed left-0 top-0 z-[100] w-full border-b transition-all duration-[var(--duration-base)] ${
+          className={`relative transition-all duration-500 rounded-full border border-white/10 ${
             scrolled
-              ? "border-white/10 bg-black/78 shadow-[0_18px_50px_rgba(0,0,0,0.28)] backdrop-blur-2xl"
-              : "border-white/5 bg-black/28 backdrop-blur-md"
+              ? "bg-black/60 shadow-[0_20px_50px_rgba(0,0,0,0.3)] backdrop-blur-2xl"
+              : "bg-black/30 backdrop-blur-xl"
           }`}
         >
           <div
-            className={`container flex items-center justify-between transition-[height] duration-[var(--duration-base)] ${
-              scrolled ? "h-[58px]" : "h-[68px]"
+            className={`flex items-center justify-between px-6 transition-[height] duration-500 ${
+              scrolled ? "h-[54px]" : "h-[62px]"
             }`}
           >
             {/* Left: Logo */}
             <Link
               href="/"
               onClick={handleClick}
-              className="group relative flex min-w-0 items-center gap-3"
+              className="group flex items-center gap-3"
               aria-label="Vizhi home"
             >
-              <div className="hidden md:flex relative h-8 w-32 overflow-hidden rounded-md transition-opacity group-hover:opacity-80 md:h-9 md:w-40">
+              <div className="relative h-7 w-28 md:h-8 md:w-32 transition-opacity group-hover:opacity-80">
                 <Image
                   src="/Vizhi_Logo_title.png"
                   alt="Vizhi XR Platform Logo"
                   fill
-                  sizes="(max-width: 768px) 128px, 160px"
                   className="object-contain"
                   priority
                 />
               </div>
-              <span className="whitespace-nowrap text-[11px] font-semibold tracking-[0.28em] text-[var(--text-muted)] sm:text-[12px]">
-                VIZHI XR
-              </span>
             </Link>
 
             {/* Center: Desktop Links */}
-            <div className="hidden items-center gap-9 md:flex">
+            <div className="hidden items-center gap-8 md:flex">
               {links.map((link) => (
                 <Link
                   key={link.name}
@@ -105,18 +101,18 @@ export default function Logo() {
                         });
                     }
                   }}
-                  className="relative py-2 text-[13px] font-normal text-[var(--text-muted)] transition-colors duration-[var(--duration-base)] after:absolute after:bottom-0 after:left-0 after:h-px after:w-0 after:bg-white after:transition-[width] after:duration-[var(--duration-base)] hover:text-[var(--text-primary)] hover:after:w-full"
+                  className="text-[13px] font-medium text-white/60 transition-colors hover:text-white"
                 >
                   {link.name}
                 </Link>
               ))}
             </div>
 
-            {/* Right: CTA */}
-            <div className="hidden md:flex items-center">
+            {/* Right: Actions */}
+            <div className="hidden md:flex items-center gap-6">
               <Link
                 href="/contact"
-                className="group inline-flex h-9 items-center gap-2 rounded-full border border-white/18 bg-white/8 px-4 text-[13px] font-medium text-[var(--text-primary)] transition-all duration-[var(--duration-base)] hover:border-white hover:bg-white hover:text-black"
+                className="inline-flex h-9 items-center justify-center rounded-full bg-white px-5 text-[13px] font-semibold text-black transition-transform hover:scale-105 active:scale-95"
               >
                 Reserve
               </Link>
@@ -124,7 +120,7 @@ export default function Logo() {
 
             {/* Mobile Toggle */}
             <button
-              className="flex h-10 w-10 items-center justify-center text-[var(--text-primary)] transition-opacity hover:opacity-70 md:hidden"
+              className="flex h-10 w-10 items-center justify-center text-white transition-opacity hover:opacity-70 md:hidden"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
               aria-expanded={mobileMenuOpen}

@@ -45,7 +45,7 @@ export const metadata: Metadata = {
     creator: "@vizhi_xr",
   },
   icons: {
-    icon: [{ url: "/favicon.ico" }, { url: "/icon.png", type: "image/png" }],
+    icon: [{ url: "/Vizhi_Logo_title.png" }, { url: "/icon.png", type: "image/png" }],
     apple: [{ url: "/apple-icon.png" }],
   },
 };

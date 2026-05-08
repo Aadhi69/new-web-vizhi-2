@@ -24,10 +24,14 @@ export default function Footer() {
             <h2 className="mb-4 text-2xl font-bold uppercase tracking-tight text-[var(--text-primary)]">
               Vizhi XR
             </h2>
-            <p className="mb-6 max-w-sm text-sm font-normal leading-relaxed text-[var(--text-muted)] sm:text-base">
+            <p className="mb-4 max-w-sm text-sm font-normal leading-relaxed text-[var(--text-muted)] sm:text-base">
               The next interface for human intelligence. Integrating digital
               computing seamlessly with reality.
             </p>
+            <div className="mb-6 text-[13px] leading-relaxed text-[var(--text-muted)] opacity-80">
+              113-ARMS, Court Road, <br />
+              Nagercoil, Kanyakumari
+            </div>
             <div className="mt-8 flex gap-4">
               {socialLinks.map(({ label, href, icon: Icon }) => (
                 <a

@@ -42,7 +42,7 @@ function RingViewer() {
   return (
     <div className="h-full w-full cursor-grab active:cursor-grabbing">
       <Canvas
-        frameloop={lowPowerMode ? "demand" : "always"}
+        frameloop="always"
         dpr={lowPowerMode ? [1, 1.25] : [1, 2]}
         performance={{ min: lowPowerMode ? 0.25 : 0.5 }}
         gl={{ antialias: !lowPowerMode, powerPreference: "high-performance" }}

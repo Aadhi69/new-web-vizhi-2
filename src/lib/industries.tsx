@@ -84,11 +84,11 @@ export const INDUSTRIES: Industry[] = [
         </div>
         <div className="flex flex-col gap-1 items-center justify-center py-4">
           <ShieldCheck size={36} className="text-[#00ff44]" />
-          <div className="text-3xl font-bold tracking-tight">45 Nm</div>
-          <div className="text-xs">TORQUE DELIVERED</div>
+          <div className="text-3xl font-bold tracking-tight">ACTIVE</div>
+          <div className="text-xs">DEFENCE SHIELD</div>
         </div>
         <div className="text-[10px] text-center mt-auto uppercase">
-          Temp: 85°C | Optimal
+          Status: Secure
         </div>
       </div>
     ),
@@ -151,17 +151,22 @@ export const INDUSTRIES: Industry[] = [
           <span>16:00</span>
           <span>100% 🔋</span>
         </div>
-        <div className="flex flex-col gap-1 items-center justify-center py-4">
-          <div className="flex items-center gap-4">
-            <ArrowRight size={48} className="text-[#00ff44]" />
-            <div className="text-4xl font-bold tracking-tight">200m</div>
+        <div className="flex flex-col gap-2 items-center justify-center py-4 text-center">
+          <div className="text-[10px] mb-1 opacity-70 uppercase">AI Maintenance Active</div>
+          <div className="text-2xl font-bold tracking-tight">STEP 3 / 5</div>
+          <div className="text-[11px] mt-1 border border-[#00ff44]/30 px-2 py-0.5 rounded uppercase">
+            Connect Terminal-B4
           </div>
-          <div className="text-sm mt-2">Enter Yu Road</div>
         </div>
-        <div className="text-[10px] text-center mt-auto uppercase flex justify-between w-full">
-          <span>16:45 ARRIVED</span>
-          <span>5 KM/H</span>
-          <span>1.5 KM</span>
+        <div className="grid grid-cols-2 gap-2 text-[9px] text-center mt-auto uppercase opacity-60">
+          <div className="flex flex-col">
+            <span>Voltage</span>
+            <span className="text-sm font-bold">230.4V</span>
+          </div>
+          <div className="flex flex-col">
+            <span>Current</span>
+            <span className="text-sm font-bold">1.2A</span>
+          </div>
         </div>
       </div>
     ),
