@@ -26,6 +26,12 @@ import {
   Search,
   Scissors,
   MousePointer2,
+  Box,
+  Globe,
+  Cpu,
+  Info,
+  Wrench,
+  Activity,
 } from "lucide-react";
 
 interface OverlayHUDProps {
