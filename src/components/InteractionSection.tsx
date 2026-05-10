@@ -1,82 +1,27 @@
 "use client";
 
-import { Suspense, useMemo } from "react";
-import { Canvas } from "@react-three/fiber";
-import {
-  Center,
-  Environment,
-  OrbitControls,
-  PerspectiveCamera,
-  useGLTF,
-} from "@react-three/drei";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import type { MotionStyle } from "framer-motion";
 import type { PointerEvent } from "react";
-import { useEffect, useState } from "react";
 import { Hand, MousePointerClick, RotateCw, ZoomIn } from "lucide-react";
-
-function RingModel() {
-  const { scene } = useGLTF("/ring.glb");
-  const model = useMemo(() => scene.clone(true), [scene]);
-
-  return (
-    <Center>
-      <primitive object={model} scale={0.16} rotation={[0, 0, 0]} />
-    </Center>
-  );
-}
+import LiteModelViewer from "./LiteModelViewer";
 
 function RingViewer() {
-  const [lowPowerMode, setLowPowerMode] = useState(false);
-
-  useEffect(() => {
-    const mq = window.matchMedia(
-      "(max-width: 768px), (prefers-reduced-motion: reduce)",
-    );
-    const update = () => setLowPowerMode(mq.matches);
-    update();
-    mq.addEventListener("change", update);
-    return () => mq.removeEventListener("change", update);
-  }, []);
-
   return (
     <div className="h-full w-full cursor-grab active:cursor-grabbing">
-      <Canvas
-        frameloop="always"
-        dpr={lowPowerMode ? [1, 1.25] : [1, 2]}
-        performance={{ min: lowPowerMode ? 0.25 : 0.5 }}
-        gl={{ antialias: !lowPowerMode, powerPreference: "high-performance" }}
-      >
-        <PerspectiveCamera
-          makeDefault
-          position={[-6.1805, 0.3104, 5.07]}
-          fov={32}
-        />
-        <ambientLight intensity={lowPowerMode ? 0.6 : 0.7} />
-        <directionalLight
-          position={[3, 4, 5]}
-          intensity={lowPowerMode ? 1.35 : 1.7}
-        />
-        <Suspense fallback={null}>
-          <Environment preset="city" />
-          <RingModel />
-        </Suspense>
-        <OrbitControls
-          enableZoom={false}
-          enablePan={false}
-          enableDamping={!lowPowerMode}
-          dampingFactor={0.08}
-          minDistance={8}
-          maxDistance={8}
-          minPolarAngle={Math.PI / 3}
-          maxPolarAngle={Math.PI / 1.45}
-        />
-      </Canvas>
+      <LiteModelViewer
+        src="/ring.glb"
+        alt="Vizhi interaction ring 3D model"
+        cameraOrbit="-51deg 88deg 16m"
+        fieldOfView="32deg"
+        minCameraOrbit="auto 60deg 16m"
+        maxCameraOrbit="auto 125deg 16m"
+        modelScale="0.36 0.36 0.36"
+        rotationPerSecond="18deg"
+      />
     </div>
   );
 }
-
-useGLTF.preload("/ring.glb");
 
 function RingParallaxCard() {
   const pointerX = useMotionValue(0);
@@ -167,7 +112,7 @@ function RingParallaxCard() {
         </div>
 
         <motion.div
-          className="relative z-20 mx-auto h-full w-[78%]"
+          className="relative z-20 mx-auto h-[82%] w-[62%] self-center"
           style={{ x: layerX, y: layerY, z: 88 }}
         >
           <RingViewer />

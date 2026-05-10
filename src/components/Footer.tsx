@@ -1,5 +1,6 @@
 "use client";
 
+import React from "react";
 import { motion } from "framer-motion";
 import { Github, Linkedin, Twitter } from "lucide-react";
 
@@ -8,9 +9,9 @@ export default function Footer() {
   const platformLinks = ["Technology", "Applications", "Vision"];
   const companyLinks = ["Contact"];
   const socialLinks = [
-    { label: "X", href: "#", icon: Twitter },
-    { label: "LinkedIn", href: "#", icon: Linkedin },
-    { label: "GitHub", href: "#", icon: Github },
+    { label: "X", href: "https://twitter.com/", icon: Twitter },
+    { label: "LinkedIn", href: "https://linkedin.com/", icon: Linkedin },
+    { label: "GitHub", href: "https://github.com/", icon: Github },
   ];
 
   return (
@@ -37,6 +38,8 @@ export default function Footer() {
                 <a
                   key={label}
                   href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   aria-label={label}
                   className="group flex h-10 w-10 items-center justify-center rounded-full border border-white/5 bg-white/[0.03] text-[var(--text-muted)] transition-all duration-300 hover:-translate-y-1 hover:border-white/20 hover:bg-white/10 hover:text-white"
                 >
@@ -53,16 +56,33 @@ export default function Footer() {
                 Platform
               </h3>
               <ul className="space-y-4">
-                {platformLinks.map((link) => (
-                  <li key={link}>
-                    <a
-                      href="#"
-                      className="text-sm text-[var(--text-muted)] transition-colors hover:text-white"
-                    >
-                      {link}
-                    </a>
-                  </li>
-                ))}
+                {platformLinks.map((link) => {
+                  const href = `#${link.toLowerCase()}`;
+                  return (
+                    <li key={link}>
+                      <a
+                        href={href}
+                        onClick={(e) => {
+                          // smooth scroll to section when present
+                          if (href.startsWith("#")) {
+                            const id = href.slice(1);
+                            const el = document.getElementById(id);
+                            if (el) {
+                              e.preventDefault();
+                              el.scrollIntoView({
+                                behavior: "smooth",
+                                block: "start",
+                              });
+                            }
+                          }
+                        }}
+                        className="text-sm text-[var(--text-muted)] transition-colors hover:text-white"
+                      >
+                        {link}
+                      </a>
+                    </li>
+                  );
+                })}
               </ul>
             </div>
 
@@ -71,16 +91,33 @@ export default function Footer() {
                 Company
               </h3>
               <ul className="space-y-4">
-                {companyLinks.map((link) => (
-                  <li key={link}>
-                    <a
-                      href="#"
-                      className="text-sm text-[var(--text-muted)] transition-colors hover:text-white"
-                    >
-                      {link}
-                    </a>
-                  </li>
-                ))}
+                {companyLinks.map((link) => {
+                  const href =
+                    link === "Contact" ? "/contact" : `#${link.toLowerCase()}`;
+                  return (
+                    <li key={link}>
+                      <a
+                        href={href}
+                        onClick={(e) => {
+                          if (href.startsWith("#")) {
+                            const id = href.slice(1);
+                            const el = document.getElementById(id);
+                            if (el) {
+                              e.preventDefault();
+                              el.scrollIntoView({
+                                behavior: "smooth",
+                                block: "start",
+                              });
+                            }
+                          }
+                        }}
+                        className="text-sm text-[var(--text-muted)] transition-colors hover:text-white"
+                      >
+                        {link}
+                      </a>
+                    </li>
+                  );
+                })}
               </ul>
             </div>
           </div>

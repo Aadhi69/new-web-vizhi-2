@@ -1,13 +1,8 @@
 "use client";
 
-import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
 import Lenis from "lenis";
 import { useReveal } from "@/hooks/useReveal";
-
-const CustomCursor = dynamic(() => import("@/components/CustomCursor"), {
-  ssr: false,
-});
 
 export default function SmoothScrolling({
   children,
@@ -56,10 +51,5 @@ export default function SmoothScrolling({
     };
   }, []);
 
-  return (
-    <>
-      {showCursor ? <CustomCursor /> : null}
-      {children}
-    </>
-  );
+  return <>{children}</>;
 }

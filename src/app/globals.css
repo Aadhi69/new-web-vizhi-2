@@ -421,11 +421,15 @@ body {
 
 /* Scroll reveal utility */
 .reveal {
-  opacity: 0;
-  transform: translateY(28px);
+  opacity: 1;
+  transform: translateY(0);
   transition:
     opacity var(--duration-slow) var(--ease-default),
     transform var(--duration-slow) var(--ease-default);
+}
+.reveal-ready .reveal:not(.is-visible) {
+  opacity: 1;
+  transform: translateY(0);
 }
 .reveal.is-visible {
   opacity: 1;

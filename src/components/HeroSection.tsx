@@ -65,7 +65,7 @@ export default function HeroSection() {
                     filter: ["blur(90px)", "blur(125px)", "blur(90px)"],
                   }
             }
-            transition={lowMotion ? { duration: 0.2 } : { duration: 4, repeat: Infinity, ease: "easeInOut" }}
+            transition={lowMotion ? { duration: 0.2 } : { duration: 6, repeat: Infinity, ease: "easeInOut" }}
             className="hidden sm:block absolute bottom-[-200%] sm:bottom-[-180%] md:bottom-[-150%] left-1/2 -translate-x-1/2 w-[280vw] sm:w-[220vw] md:w-[185vw] lg:w-[130vw] h-[60vh] sm:h-[65vh] md:h-[68vh] rounded-[100%] bg-gradient-to-t from-white/55 via-neutral-400/45 to-transparent blur-[90px] pointer-events-none mix-blend-screen"
           />
 
@@ -76,14 +76,18 @@ export default function HeroSection() {
               raysOrigin="bottom-center"
               raysColor="#ffffff"
               raysSpeed={1.85}
-              lightSpread={1.95}
+              lightSpread={2}
               rayLength={2}
               followMouse={false}
               mouseInfluence={0}
               noiseAmount={0.06}
               distortion={0.04}
+              fadeDistance={2}
+              saturation={2}
               intensity={2.25}
               opacity={1}
+              maxDpr={1.15}
+              fps={30}
               className="custom-rays"
             />
             ) : null}
@@ -96,93 +100,101 @@ export default function HeroSection() {
             ) : null}
 
             {!lowMotion ? (
-            <div className="absolute inset-0 z-0 pointer-events-none opacity-95">
-              <LightRays
-                raysOrigin="bottom-center"
-                raysColor="#ffffff"
-                raysSpeed={1.45}
-                lightSpread={2.35}
-                rayLength={2.1}
-                followMouse={false}
-                mouseInfluence={0}
-                noiseAmount={0.015}
-                distortion={0.02}
-                intensity={2.85}
-                opacity={1}
-                className="custom-rays"
-              />
-            </div>
+              <div className="absolute inset-0 z-0 pointer-events-none opacity-80">
+                <LightRays
+                  raysOrigin="bottom-center"
+                  raysColor="#ffffff"
+                  raysSpeed={0.75}
+                  lightSpread={2}
+                  rayLength={1.35}
+                  followMouse={false}
+                  mouseInfluence={0}
+                  noiseAmount={0}
+                  distortion={0}
+                  fadeDistance={2}
+                  saturation={2}
+                  intensity={1.25}
+                  opacity={0.78}
+                  maxDpr={0.85}
+                  fps={24}
+                  className="custom-rays"
+                />
+              </div>
             ) : null}
 
-            {/* Component 1: Top-left floating orb */}
-            <motion.div
-              animate={{
-                x: [0, 8, -6, 0],
-                y: [0, -10, 6, 0],
-              }}
-              transition={lowMotion ? { duration: 0.2 } : { duration: 6, repeat: Infinity, ease: "easeInOut" }}
-              className="absolute top-[7%] left-[4%] z-10 w-8 h-8 rounded-full bg-gradient-to-br from-white/12 to-transparent blur-lg"
-            />
+            {!lowMotion && (
+              <>
+                {/* Component 1: Top-left floating orb */}
+                <motion.div
+                  animate={{
+                    x: [0, 8, -6, 0],
+                    y: [0, -10, 6, 0],
+                  }}
+                  transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+                  className="absolute top-[7%] left-[4%] z-10 w-8 h-8 rounded-full bg-gradient-to-br from-white/12 to-transparent blur-lg"
+                />
 
-            {/* Component 2: Top-right floating orb */}
-            <motion.div
-              animate={{
-                x: [0, -8, 6, 0],
-                y: [0, 9, -7, 0],
-              }}
-              transition={{
-                duration: lowMotion ? 0.2 : 7,
-                repeat: lowMotion ? 0 : Infinity,
-                ease: "easeInOut",
-                delay: 0.5,
-              }}
-              className="absolute top-[16%] right-[4%] z-10 w-9 h-9 rounded-full bg-gradient-to-tl from-[var(--accent)]/10 to-transparent blur-lg"
-            />
+                {/* Component 2: Top-right floating orb */}
+                <motion.div
+                  animate={{
+                    x: [0, -8, 6, 0],
+                    y: [0, 9, -7, 0],
+                  }}
+                  transition={{
+                    duration: 7,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                    delay: 0.5,
+                  }}
+                  className="absolute top-[16%] right-[4%] z-10 w-9 h-9 rounded-full bg-gradient-to-tl from-[var(--accent)]/10 to-transparent blur-lg"
+                />
 
-            {/* Component 3: Mid-left glow */}
-            <motion.div
-              animate={{
-                x: [0, -7, 5, 0],
-                y: [0, 8, -6, 0],
-              }}
-              transition={{
-                duration: lowMotion ? 0.2 : 8.5,
-                repeat: lowMotion ? 0 : Infinity,
-                ease: "easeInOut",
-                delay: 1,
-              }}
-              className="absolute top-[52%] right-[10%] z-10 w-6 h-6 rounded-full bg-gradient-to-tr from-white/10 to-transparent blur-md"
-            />
+                {/* Component 3: Mid-left glow */}
+                <motion.div
+                  animate={{
+                    x: [0, -7, 5, 0],
+                    y: [0, 8, -6, 0],
+                  }}
+                  transition={{
+                    duration: 8.5,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                    delay: 1,
+                  }}
+                  className="absolute top-[52%] right-[10%] z-10 w-6 h-6 rounded-full bg-gradient-to-tr from-white/10 to-transparent blur-md"
+                />
 
-            {/* Component 4: Bottom-left orb */}
-            <motion.div
-              animate={{
-                x: [0, 8, -6, 0],
-                y: [0, -8, 7, 0],
-              }}
-              transition={{
-                duration: lowMotion ? 0.2 : 9.5,
-                repeat: lowMotion ? 0 : Infinity,
-                ease: "easeInOut",
-                delay: 1.5,
-              }}
-              className="absolute bottom-[24%] left-[6%] z-10 w-8 h-8 rounded-full bg-gradient-to-bl from-white/10 to-transparent blur-lg"
-            />
+                {/* Component 4: Bottom-left orb */}
+                <motion.div
+                  animate={{
+                    x: [0, 8, -6, 0],
+                    y: [0, -8, 7, 0],
+                  }}
+                  transition={{
+                    duration: 9.5,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                    delay: 1.5,
+                  }}
+                  className="absolute bottom-[24%] left-[6%] z-10 w-8 h-8 rounded-full bg-gradient-to-bl from-white/10 to-transparent blur-lg"
+                />
 
-            {/* Component 5: Bottom-right ribbon glow */}
-            <motion.div
-              animate={{
-                x: [0, -7, 6, 0],
-                y: [0, 7, -6, 0],
-              }}
-              transition={{
-                duration: lowMotion ? 0.2 : 10,
-                repeat: lowMotion ? 0 : Infinity,
-                ease: "easeInOut",
-                delay: 2,
-              }}
-              className="absolute bottom-[10%] right-[8%] z-10 w-10 h-6 rounded-full bg-gradient-to-l from-white/10 to-transparent blur-lg"
-            />
+                {/* Component 5: Bottom-right ribbon glow */}
+                <motion.div
+                  animate={{
+                    x: [0, -7, 6, 0],
+                    y: [0, 7, -6, 0],
+                  }}
+                  transition={{
+                    duration: 10,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                    delay: 2,
+                  }}
+                  className="absolute bottom-[10%] right-[8%] z-10 w-10 h-6 rounded-full bg-gradient-to-l from-white/10 to-transparent blur-lg"
+                />
+              </>
+            )}
           </div>
 
           <h2 className="text-[clamp(24px,8vw,48px)] sm:text-[clamp(56px,11vw,144px)] font-[900] leading-tight sm:leading-none tracking-[-0.05em] text-[var(--text-primary)] z-20 px-6">
