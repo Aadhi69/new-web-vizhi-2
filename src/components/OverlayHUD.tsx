@@ -83,7 +83,11 @@ export default function OverlayHUD({
     industryType.includes("defence") || industryType.includes("defense");
 
   return (
-    <div className="fixed inset-0 z-20 pointer-events-none flex flex-col items-center justify-between p-6 sm:p-8">
+    <div
+      className={`fixed inset-0 z-20 pointer-events-none flex flex-col items-center justify-between overflow-hidden ${
+        isFieldService ? "p-3 sm:p-4" : "p-6 sm:p-8"
+      }`}
+    >
       {/* Corner brackets */}
       <div className="corner-bracket top-left pointer-events-none" />
       <div className="corner-bracket top-right pointer-events-none" />
@@ -120,17 +124,43 @@ export default function OverlayHUD({
       </div>
 
       {/* Center HUD */}
-      <div className="flex flex-col items-center gap-2 sm:gap-4 pointer-events-auto max-h-[85vh] overflow-hidden w-full">
-        <div className="hud-panel w-full max-w-5xl p-0 sm:p-0">
+      <div
+        className={`flex flex-col items-center pointer-events-auto overflow-hidden w-full min-h-0 ${
+          isFieldService
+            ? "flex-1 justify-center gap-1 max-h-[calc(100vh-7.5rem)]"
+            : "gap-2 sm:gap-4 max-h-[85vh]"
+        }`}
+      >
+        <div
+          className={`hud-panel w-full p-0 sm:p-0 ${
+            isFieldService ? "max-w-6xl h-full flex flex-col min-h-0" : "max-w-5xl"
+          }`}
+        >
           {/* Header / Title */}
-          <div className="flex items-center justify-between mb-4">
+          <div
+            className={`flex items-center justify-between shrink-0 ${
+              isFieldService ? "mb-1 sm:mb-2" : "mb-4"
+            }`}
+          >
             <div>
-              <h2 className="text-lg sm:text-2xl font-semibold text-white tracking-tight">
+              <h2
+                className={`font-semibold text-white tracking-tight ${
+                  isFieldService ? "text-sm sm:text-lg" : "text-lg sm:text-2xl"
+                }`}
+              >
                 {title.toUpperCase()}
               </h2>
-              <div className="mt-2 flex items-center gap-3 bg-transparent text-[12px] text-(--vizhi-muted)">
+              <div
+                className={`flex items-center gap-3 bg-transparent text-[12px] text-(--vizhi-muted) ${
+                  isFieldService ? "mt-1" : "mt-2"
+                }`}
+              >
                 <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 bg-[rgba(255,255,255,0.06)] rounded-full flex items-center justify-center text-sm font-semibold">
+                  <div
+                    className={`bg-[rgba(255,255,255,0.06)] rounded-full flex items-center justify-center font-semibold ${
+                      isFieldService ? "w-6 h-6 text-[10px]" : "w-8 h-8 text-sm"
+                    }`}
+                  >
                     {isHealthcare && "JS"}
                     {isManufacturing && "MF"}
                     {isEducation && "ST"}
@@ -139,7 +169,11 @@ export default function OverlayHUD({
                     {isDefence && "TM"}
                   </div>
                   <div className="font-mono">
-                    <div className="text-(--vizhi-teal) text-base font-black tracking-tight drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
+                    <div
+                      className={`text-(--vizhi-teal) font-black tracking-tight drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] ${
+                        isFieldService ? "text-xs sm:text-sm" : "text-base"
+                      }`}
+                    >
                       {isHealthcare && "J. SMITH"}
                       {isManufacturing && "UNIT-47"}
                       {isEducation && "STUDENT-001"}
@@ -147,7 +181,11 @@ export default function OverlayHUD({
                       {isFieldService && "TEAM-ALPHA"}
                       {isDefence && "TACTICAL-01"}
                     </div>
-                    <div className="text-[12px] text-(--vizhi-teal) font-bold opacity-90 tracking-wide mt-0.5 drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]">
+                    <div
+                      className={`text-(--vizhi-teal) font-bold opacity-90 tracking-wide mt-0.5 drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)] ${
+                        isFieldService ? "text-[10px]" : "text-[12px]"
+                      }`}
+                    >
                       {isHealthcare && "ID: HC-2847 • 46 yrs"}
                       {isManufacturing && "Line 3 • Active"}
                       {isEducation && "Grade: A+ • Focus: 95%"}
@@ -159,7 +197,7 @@ export default function OverlayHUD({
                 </div>
               </div>
             </div>
-            <div className="text-xs text-(--vizhi-muted)">3D Preview Mode</div>
+            <div className={`${isFieldService ? "text-[10px]" : "text-xs"} text-(--vizhi-muted)`}>3D Preview Mode</div>
           </div>
 
           {/* Main content layout - Industry-specific */}
@@ -656,235 +694,157 @@ export default function OverlayHUD({
               </div>
             </div>
           ) : isFieldService ? (
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 items-start">
-              <div className="col-span-1 flex flex-col items-center gap-3">
-                <MapPin size={48} className="text-(--vizhi-teal)" />
-                <div className="flex flex-col items-center">
-                  <div className="pulse-ring rounded-full p-6">
-                    <div className="text-lg font-semibold mono-numeric text-(--vizhi-teal)">
-                      12.4 km
-                    </div>
-                    <div className="text-xs text-(--vizhi-teal) mt-1">
-                      TO BASE
-                    </div>
+            <div className="flex min-h-0 flex-1 w-full items-center justify-center overflow-hidden px-1 sm:px-2">
+              <div className="flex h-full w-full max-w-[min(1200px,96vw)] flex-col gap-1.5 sm:gap-2 rounded-[1.25rem] bg-black/10 px-1 py-1 sm:px-2 sm:py-1.5">
+                <div className="flex w-full justify-between items-center gap-2 px-1 sm:px-2 shrink-0">
+                  <div className="flex items-center justify-center gap-2 bg-black/60 border border-[rgba(0,201,167,0.3)] rounded-full px-3 py-1.5">
+                  <div className="pulse-dot animate bg-yellow-500 w-2 h-2 sm:w-2.5 sm:h-2.5" />
+                    <span className="text-[9px] sm:text-[10px] font-black tracking-widest text-yellow-500 uppercase leading-none text-center">AI Guided Repair Active</span>
                   </div>
-                  <div className="mt-2 flex items-center gap-2 text-[12px] text-(--vizhi-muted)">
-                    <div className="text-sm">→</div>
-                    <div className="mono-numeric">E-NE 45°</div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="md:col-span-2 grid grid-cols-2 gap-3">
-                <div className="hud-stat-card flex items-center gap-3">
-                  <MapPin size={20} className="text-(--vizhi-teal)" />
-                  <div>
-                    <div className="text-[10px] text-(--vizhi-muted)">
-                      Location
-                    </div>
-                    <div className="text-lg font-semibold mono-numeric text-(--vizhi-teal)">
-                      Sector-7
-                    </div>
-                  </div>
-                  <div className="ml-auto text-sm px-2 py-1 rounded text-white bg-[rgba(0,201,167,0.12)]">
-                    OK
+                  <div className="bg-black/80 border border-white/10 rounded-full px-3 py-1.5 flex items-center justify-center">
+                    <span className="text-[9px] sm:text-[10px] font-black text-white/60 uppercase tracking-widest leading-none text-center">Panel DB-09 / Circuit A</span>
                   </div>
                 </div>
 
-                <div className="hud-stat-card flex items-center gap-3">
-                  <span className="text-lg text-(--vizhi-teal) font-bold">
-                    →
-                  </span>
-                  <div>
-                    <div className="text-[10px] text-(--vizhi-muted)">
-                      Task Status
-                    </div>
-                    <div className="text-lg font-semibold mono-numeric text-(--vizhi-teal)">
-                      In Progress
-                    </div>
-                  </div>
-                  <div className="ml-auto text-sm px-2 py-1 rounded text-white bg-[rgba(0,201,167,0.12)]">
-                    60%
-                  </div>
-                </div>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-1.5 sm:gap-2 flex-1 min-h-0 overflow-hidden">
+                  <motion.div
+                    initial={{ x: -16, opacity: 0 }}
+                    animate={{ x: 0, opacity: 1 }}
+                    className="flex flex-col gap-2 min-h-0"
+                  >
+                    <div className="bg-black/80 border border-(--vizhi-teal)/30 p-2 sm:p-2.5 rounded-xl sm:rounded-2xl shadow-xl flex-1 flex flex-col min-h-0 overflow-hidden">
+                      <div className="flex items-center gap-1.5 mb-1.5 shrink-0">
+                        <Cpu size={12} className="text-(--vizhi-teal)" />
+                        <h3 className="text-[8px] sm:text-[9px] font-black text-(--vizhi-teal) uppercase tracking-widest">Repair Instructions</h3>
+                      </div>
 
-                <div className="hud-stat-card flex items-center gap-3">
-                  <Battery size={20} className="text-(--vizhi-teal)" />
-                  <div>
-                    <div className="text-[10px] text-(--vizhi-muted)">
-                      Equipment
-                    </div>
-                    <div className="text-lg font-semibold mono-numeric text-(--vizhi-teal)">
-                      Ready
-                    </div>
-                  </div>
-                  <div className="ml-auto text-sm px-2 py-1 rounded text-white bg-[rgba(0,201,167,0.12)]">
-                    ✓
-                  </div>
-                </div>
+                      <div className="space-y-1.5 flex-1 min-h-0 overflow-hidden">
+                        <div className="p-1.5 sm:p-2 bg-(--vizhi-teal)/15 border border-(--vizhi-teal)/40 rounded-lg sm:rounded-xl relative overflow-hidden">
+                          <div className="absolute top-0 right-0 p-1 bg-(--vizhi-teal) text-black text-[7px] font-black px-1.5">CURRENT</div>
+                          <div className="text-[8px] font-black text-white/50 mb-1">STEP 3 OF 5</div>
+                          <div className="text-[9px] sm:text-[11px] font-black text-(--vizhi-teal) leading-tight uppercase mb-1">Plug the red wire into Terminal B4.</div>
+                          <div className="text-[8px] sm:text-[9px] font-bold text-yellow-300/90 uppercase leading-tight mb-1">Keep the black probe in the COM port.</div>
+                          <div className="h-1 bg-white/10 rounded-full overflow-hidden">
+                            <motion.div
+                              animate={{ width: ["0%", "100%"] }}
+                              transition={{ duration: 2, repeat: Infinity }}
+                              className="h-full bg-(--vizhi-teal)"
+                            />
+                          </div>
+                        </div>
 
-                <div className="hud-stat-card flex items-center gap-3">
-                  <span className="text-lg text-(--vizhi-teal) font-bold">
-                    ⋯
-                  </span>
-                  <div>
-                    <div className="text-[10px] text-(--vizhi-muted)">
-                      Signal
-                    </div>
-                    <div className="text-lg font-semibold mono-numeric text-(--vizhi-teal)">
-                      Strong
-                    </div>
-                  </div>
-                  <div className="ml-auto text-sm px-2 py-1 rounded text-white bg-[rgba(0,201,167,0.12)]">
-                    5/5
-                  </div>
-                </div>
-              </div>
-            </div>
-          ) : isFieldService ? (
-            <div className="flex flex-col gap-4 w-full h-full max-w-6xl mx-auto px-4 pb-2">
-              {/* Header: Field Service Status */}
-              <div className="flex w-full justify-between items-center mb-2 px-2">
-                <div className="flex items-center justify-center gap-2 sm:gap-3 bg-black/60 border border-[rgba(0,201,167,0.3)] rounded-full px-3 sm:px-5 py-1 sm:py-2 shadow-none sm:shadow-lg">
-                  <div className="pulse-dot animate bg-yellow-500 !w-2 !h-2 sm:!w-2.5 sm:!h-2.5" />
-                  <span className="text-[9px] sm:text-[11px] font-black tracking-widest text-yellow-500 uppercase leading-none">Diagnostic Mode Active</span>
-                </div>
-                <div className="bg-black/80 border border-white/10 rounded-full px-3 sm:px-4 py-1 sm:py-2 flex items-center justify-center">
-                  <span className="text-[9px] sm:text-[12px] font-black text-white/60 uppercase tracking-widest leading-none">Task: Circuit Repair #09</span>
-                </div>
-              </div>
-
-              <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 flex-1 overflow-hidden">
-                {/* Left: AI Guidance Steps */}
-                <motion.div 
-                  initial={{ x: -20, opacity: 0 }}
-                  animate={{ x: 0, opacity: 1 }}
-                  className="lg:col-span-4 flex flex-col gap-3 h-full"
-                >
-                  <div className="bg-black/80 border border-(--vizhi-teal)/30 p-4 rounded-2xl shadow-xl flex-1 flex flex-col">
-                    <div className="flex items-center gap-2 mb-4">
-                      <Cpu size={16} className="text-(--vizhi-teal)" />
-                      <h3 className="text-[11px] font-black text-(--vizhi-teal) uppercase tracking-widest">AI Repair Assistant</h3>
-                    </div>
-                    
-                    <div className="space-y-3 overflow-y-auto pr-2 no-scrollbar">
-                      <div className="p-3 bg-(--vizhi-teal)/20 border border-(--vizhi-teal)/50 rounded-xl relative overflow-hidden">
-                        <div className="absolute top-0 right-0 p-1 bg-(--vizhi-teal) text-black text-[8px] font-black px-1.5">CURRENT</div>
-                        <div className="text-[9px] font-black text-white/50 mb-1">STEP 3 OF 5</div>
-                        <div className="text-[13px] font-black text-(--vizhi-teal) leading-tight uppercase mb-2">Connect Red Jumper to Terminal-B4</div>
-                        <div className="h-1 bg-white/10 rounded-full overflow-hidden">
-                          <motion.div 
-                            animate={{ width: ["0%", "100%"] }}
-                            transition={{ duration: 2, repeat: Infinity }}
-                            className="h-full bg-(--vizhi-teal)" 
-                          />
+                        <div className="p-1.5 sm:p-2 bg-white/5 border border-white/10 rounded-lg sm:rounded-xl opacity-80">
+                          <div className="text-[8px] font-black text-white/30 mb-1 uppercase">Next Step</div>
+                          <div className="text-[8px] sm:text-[10px] font-black text-white/70 leading-tight uppercase">Set the multimeter to the AC 200V range.</div>
                         </div>
                       </div>
 
-                      <div className="p-3 bg-white/5 border border-white/10 rounded-xl opacity-60">
-                        <div className="text-[9px] font-black text-white/30 mb-1 uppercase">Upcoming</div>
-                        <div className="text-[11px] font-black text-white/60 leading-tight uppercase">Calibrate Multimeter to 200V AC</div>
+                      <div className="mt-1.5 pt-1.5 border-t border-white/5 shrink-0">
+                        <div className="flex items-center gap-1.5 p-1.5 sm:p-2 bg-blue-500/10 border border-blue-500/30 rounded-lg sm:rounded-xl">
+                          <Info size={12} className="text-blue-400 shrink-0" />
+                          <p className="text-[8px] sm:text-[9px] text-blue-400/80 font-black uppercase leading-tight">Stop immediately if you detect heat or sparks.</p>
+                        </div>
                       </div>
                     </div>
+                  </motion.div>
 
-                    <div className="mt-auto pt-4 border-t border-white/5">
-                      <div className="flex items-center gap-3 p-3 bg-blue-500/10 border border-blue-500/30 rounded-xl">
-                        <Info size={18} className="text-blue-400 shrink-0" />
-                        <p className="text-[10px] text-blue-400/80 font-black uppercase leading-tight">Safety Protocol: Ensure main breaker is locked-out.</p>
-                      </div>
-                    </div>
-                  </div>
-                </motion.div>
+                  <motion.div
+                    initial={{ y: 16, opacity: 0 }}
+                    animate={{ y: 0, opacity: 1 }}
+                    className="hidden md:flex flex-col gap-2 min-h-0"
+                  >
+                    <div className="bg-black/90 border-2 border-(--vizhi-teal)/40 rounded-2xl sm:rounded-3xl p-2 sm:p-3 shadow-2xl relative flex-1 flex flex-col items-center justify-center overflow-hidden min-h-0">
+                    <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'radial-gradient(circle, var(--vizhi-teal) 1px, transparent 1px)', backgroundSize: '14px 14px' }} />
 
-                {/* Center: Wiring Schematic Overlay */}
-                <motion.div 
-                  initial={{ y: 20, opacity: 0 }}
-                  animate={{ y: 0, opacity: 1 }}
-                  className="lg:col-span-5 flex flex-col gap-4"
-                >
-                  <div className="bg-black/90 border-2 border-(--vizhi-teal)/40 rounded-3xl p-4 sm:p-6 shadow-2xl relative flex-1 flex flex-col items-center justify-center overflow-hidden min-h-[300px]">
-                    {/* Wiring Grid Background */}
-                    <div className="absolute inset-0 opacity-10" 
-                         style={{ backgroundImage: 'radial-gradient(circle, var(--vizhi-teal) 1px, transparent 1px)', backgroundSize: '15px 15px' }} />
-                    
-                    {/* Visual Schematics / AR Guide */}
-                    <div className="relative w-full aspect-square max-w-[240px] flex items-center justify-center">
-                      <div className="absolute inset-0 border border-(--vizhi-teal)/20 rounded-xl rotate-45" />
-                      <div className="absolute inset-0 border border-(--vizhi-teal)/10 rounded-xl -rotate-12" />
-                      
-                      {/* Dynamic Wiring Target */}
-                      <motion.div 
-                        animate={{ scale: [1, 1.1, 1], opacity: [0.3, 0.6, 0.3] }}
-                        transition={{ duration: 1.5, repeat: Infinity }}
-                        className="absolute w-12 h-12 border-2 border-yellow-500 rounded-full flex items-center justify-center"
-                        style={{ top: '20%', right: '30%' }}
-                      >
-                        <Zap size={20} className="text-yellow-500" />
-                      </motion.div>
+                      <div className="relative w-full aspect-square max-w-[120px] sm:max-w-[170px] flex items-center justify-center">
+                        <div className="absolute inset-0 border border-(--vizhi-teal)/20 rounded-xl rotate-45" />
+                        <div className="absolute inset-0 border border-(--vizhi-teal)/10 rounded-xl -rotate-12" />
 
-                      <div className="z-10 bg-black/60 p-4 rounded-2xl border border-(--vizhi-teal)/50 backdrop-blur-md">
-                         <div className="flex flex-col items-center gap-3">
-                           <Wrench size={40} className="text-(--vizhi-teal) animate-bounce" />
-                           <div className="text-center">
-                             <div className="text-[10px] font-black text-(--vizhi-teal) uppercase tracking-widest">Alignment Active</div>
-                             <div className="text-[14px] font-black text-white uppercase">Port: TERMINAL-B4</div>
-                           </div>
-                         </div>
-                      </div>
-                    </div>
+                        <motion.div
+                          animate={{ scale: [1, 1.08, 1], opacity: [0.35, 0.65, 0.35] }}
+                          transition={{ duration: 1.6, repeat: Infinity }}
+                          className="absolute w-9 h-9 border-2 border-yellow-500 rounded-full flex items-center justify-center"
+                          style={{ top: '20%', right: '30%' }}
+                        >
+                          <Zap size={16} className="text-yellow-500" />
+                        </motion.div>
 
-                    <div className="mt-6 flex gap-2">
-                       <span className="px-3 py-1 bg-yellow-500/20 border border-yellow-500/50 rounded-full text-[9px] font-black text-yellow-500 uppercase tracking-tighter">Plug Here</span>
-                       <span className="px-3 py-1 bg-white/5 border border-white/10 rounded-full text-[9px] font-black text-white/40 uppercase tracking-tighter">Terminal A-1</span>
-                    </div>
-                  </div>
-                </motion.div>
-
-                {/* Right: Multimeter Telemetry */}
-                <motion.div 
-                  initial={{ x: 20, opacity: 0 }}
-                  animate={{ x: 0, opacity: 1 }}
-                  className="lg:col-span-3 flex flex-col gap-4"
-                >
-                  <div className="bg-black/80 border border-blue-500/30 p-4 rounded-2xl shadow-xl backdrop-blur-xl flex-1">
-                    <div className="flex items-center gap-2 mb-6">
-                      <Activity size={16} className="text-blue-400" />
-                      <h3 className="text-[11px] font-black text-blue-400 uppercase tracking-widest">Live Telemetry</h3>
-                    </div>
-
-                    <div className="space-y-6">
-                      <div className="flex flex-col gap-1">
-                        <div className="flex justify-between text-[10px] font-black text-white/40 uppercase">Voltage (AC)</div>
-                        <div className="text-3xl font-black text-white mono-numeric tracking-tighter">
-                          230.4 <span className="text-blue-400 text-lg uppercase">V</span>
+                        <div className="z-10 bg-black/60 p-2 sm:p-3 rounded-xl sm:rounded-2xl border border-(--vizhi-teal)/50 backdrop-blur-md text-center">
+                          <div className="flex flex-col items-center gap-1.5 sm:gap-2">
+                            <Wrench size={24} className="text-(--vizhi-teal) animate-bounce" />
+                            <div>
+                              <div className="text-[8px] sm:text-[9px] font-black text-(--vizhi-teal) uppercase tracking-widest">Alignment Active</div>
+                              <div className="text-[10px] sm:text-[12px] font-black text-white uppercase">Port: Terminal B4</div>
+                              <div className="mt-1 text-[8px] font-black text-yellow-400 uppercase">Place the red wire here.</div>
+                            </div>
+                          </div>
                         </div>
                       </div>
 
-                      <div className="grid grid-cols-2 gap-4">
-                        <div>
-                          <div className="text-[9px] font-black text-white/40 uppercase mb-1">Resistance</div>
-                          <div className="text-xl font-black text-(--vizhi-teal) mono-numeric">14.2 Ω</div>
-                        </div>
-                        <div>
-                          <div className="text-[9px] font-black text-white/40 uppercase mb-1">Current</div>
-                          <div className="text-xl font-black text-(--vizhi-teal) mono-numeric">1.2 A</div>
-                        </div>
-                      </div>
-
-                      <div className="pt-4 border-t border-white/10">
-                        <div className="flex justify-between text-[10px] font-black text-white/40 uppercase mb-2">Power Load</div>
-                        <div className="h-2 bg-white/10 rounded-full overflow-hidden mb-2">
-                           <motion.div 
-                             animate={{ width: "78%" }}
-                             transition={{ duration: 1 }}
-                             className="h-full bg-blue-500 shadow-[0_0_10px_rgba(59,130,246,0.5)]" 
-                           />
-                        </div>
-                        <div className="text-[10px] font-black text-blue-400 text-right uppercase tracking-widest">78% Nominal</div>
+                      <div className="mt-2 flex flex-wrap justify-center gap-1.5">
+                        <span className="px-2 py-0.5 sm:px-2.5 sm:py-1 bg-yellow-500/20 border border-yellow-500/50 rounded-full text-[7px] sm:text-[8px] font-black text-yellow-500 uppercase tracking-tighter">Connect Here</span>
+                        <span className="px-2 py-0.5 sm:px-2.5 sm:py-1 bg-red-500/20 border border-red-500/50 rounded-full text-[7px] sm:text-[8px] font-black text-red-300 uppercase tracking-tighter">Red to B4</span>
+                        <span className="px-2 py-0.5 sm:px-2.5 sm:py-1 bg-white/5 border border-white/10 rounded-full text-[7px] sm:text-[8px] font-black text-white/40 uppercase tracking-tighter">Black to COM</span>
                       </div>
                     </div>
-                  </div>
-                </motion.div>
+                  </motion.div>
+
+                  <motion.div
+                    initial={{ x: 16, opacity: 0 }}
+                    animate={{ x: 0, opacity: 1 }}
+                    className="flex flex-col gap-2 min-h-0"
+                  >
+                    <div className="bg-black/80 border border-blue-500/30 p-2 sm:p-2.5 rounded-xl sm:rounded-2xl shadow-xl backdrop-blur-xl flex-1 flex flex-col min-h-0 overflow-hidden">
+                      <div className="flex items-center gap-1.5 mb-2 shrink-0">
+                        <Activity size={12} className="text-blue-400" />
+                        <h3 className="text-[8px] sm:text-[9px] font-black text-blue-400 uppercase tracking-widest">Meter Readings</h3>
+                      </div>
+
+                      <div className="space-y-2 flex-1 min-h-0 overflow-hidden">
+                        <div className="flex flex-col gap-1">
+                          <div className="flex justify-between text-[8px] sm:text-[9px] font-black text-white/40 uppercase">Voltage (AC)</div>
+                          <div className="text-[clamp(1.25rem,2.4vw,1.9rem)] font-black text-white mono-numeric tracking-tighter leading-none">
+                            230.4 <span className="text-blue-400 text-sm uppercase">V</span>
+                          </div>
+                          <div className="mt-0.5 text-[8px] sm:text-[9px] font-black text-(--vizhi-teal) uppercase">Live reading is updating now.</div>
+                        </div>
+
+                        <div className="grid grid-cols-2 gap-2">
+                          <div>
+                            <div className="text-[8px] sm:text-[9px] font-black text-white/40 uppercase mb-1">Resistance</div>
+                            <div className="text-sm sm:text-base font-black text-(--vizhi-teal) mono-numeric">14.2 Ω</div>
+                          </div>
+                          <div>
+                            <div className="text-[8px] sm:text-[9px] font-black text-white/40 uppercase mb-1">Current</div>
+                            <div className="text-sm sm:text-base font-black text-(--vizhi-teal) mono-numeric">1.2 A</div>
+                          </div>
+                        </div>
+
+                        <div className="pt-1.5 sm:pt-2 border-t border-white/10">
+                          <div className="flex justify-between text-[9px] font-black text-white/40 uppercase mb-2">Power Load</div>
+                          <div className="h-2 bg-white/10 rounded-full overflow-hidden mb-1.5">
+                            <motion.div
+                              animate={{ width: "78%" }}
+                              transition={{ duration: 1 }}
+                              className="h-full bg-blue-500 shadow-[0_0_10px_rgba(59,130,246,0.5)]"
+                            />
+                          </div>
+                          <div className="text-[9px] font-black text-blue-400 text-right uppercase tracking-widest">78% Nominal</div>
+                        </div>
+
+                        <div className="rounded-lg sm:rounded-xl border border-yellow-500/30 bg-yellow-500/10 p-1.5 sm:p-2">
+                          <div className="flex items-center gap-1.5 text-[8px] sm:text-[9px] font-black uppercase text-yellow-400">
+                            <AlertTriangle size={12} />
+                            Safety Check
+                          </div>
+                          <p className="mt-1 text-[8px] sm:text-[9px] font-bold leading-snug text-yellow-100/80">
+                            If the reading stays between 220V and 240V, the connection is correct.
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </motion.div>
+                </div>
               </div>
             </div>
           ) : isDefence ? (

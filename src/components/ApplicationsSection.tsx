@@ -1,68 +1,18 @@
 "use client";
 
-import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
-import type { MotionStyle } from "framer-motion";
+import { motion } from "framer-motion";
 import { useRef } from "react";
-import type { PointerEvent } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { INDUSTRIES } from "@/lib/industries";
 
-function IndustryParallaxCard({
+function IndustryCard({
   industry,
-  index,
 }: {
   industry: (typeof INDUSTRIES)[0];
-  index: number;
 }) {
-  const pointerX = useMotionValue(0);
-  const pointerY = useMotionValue(0);
-  const rotateX = useSpring(useTransform(pointerY, [-0.5, 0.5], [8, -8]), {
-    stiffness: 160,
-    damping: 18,
-  });
-  const rotateY = useSpring(useTransform(pointerX, [-0.5, 0.5], [-10, 10]), {
-    stiffness: 160,
-    damping: 18,
-  });
-  const sheenX = useSpring(
-    useTransform(pointerX, [-0.5, 0.5], ["18%", "82%"]),
-    { stiffness: 130, damping: 20 },
-  );
-  const layerX = useSpring(useTransform(pointerX, [-0.5, 0.5], [-12, 12]), {
-    stiffness: 130,
-    damping: 20,
-  });
-  const layerY = useSpring(useTransform(pointerY, [-0.5, 0.5], [-12, 12]), {
-    stiffness: 130,
-    damping: 20,
-  });
-  const hudX = useTransform(layerX, (value) => value * 0.5);
-  const hudY = useTransform(layerY, (value) => value * 0.5);
-  const sheenBackground = useTransform(
-    sheenX,
-    (x) =>
-      `radial-gradient(circle at ${x} 0%, rgba(255,255,255,0.18), transparent 38%)`,
-  );
-  const cardStyle = {
-    rotateX,
-    rotateY,
-    transformStyle: "preserve-3d",
-  } as MotionStyle;
-
-  function handlePointerMove(event: PointerEvent<HTMLDivElement>) {
-    const rect = event.currentTarget.getBoundingClientRect();
-    pointerX.set((event.clientX - rect.left) / rect.width - 0.5);
-    pointerY.set((event.clientY - rect.top) / rect.height - 0.5);
-  }
-
   const router = useRouter();
-
-  function handlePointerLeave() {
-    pointerX.set(0);
-    pointerY.set(0);
-  }
 
   function handleKeyDown(event: React.KeyboardEvent) {
     if (event.key === "Enter" || event.key === " ") {
@@ -74,12 +24,8 @@ function IndustryParallaxCard({
   return (
     <div
       className="snap-center relative h-[460px] w-[300px] shrink-0 sm:h-[510px] sm:w-[350px]"
-      style={{ perspective: "1000px" }}
-      onPointerMove={handlePointerMove}
-      onPointerLeave={handlePointerLeave}
     >
       <motion.div
-        style={cardStyle}
         initial="rest"
         whileHover="hover"
         whileFocus="hover"
@@ -90,18 +36,20 @@ function IndustryParallaxCard({
         tabIndex={0}
         variants={{
           rest: { y: 0, scale: 1 },
-          hover: { y: -6, scale: 1.025 },
+          hover: { y: -6, scale: 1 },
         }}
         transition={{ type: "spring", stiffness: 160, damping: 18 }}
         className="group relative flex h-full w-full cursor-pointer flex-col overflow-hidden rounded-[var(--radius-md)] border border-white/10 bg-black p-[var(--space-sm)] sm:p-[var(--space-md)] shadow-[0_20px_70px_rgba(0,0,0,0.78)] transition-colors duration-[var(--duration-base)] hover:border-[var(--border-hover)] hover:shadow-[var(--shadow-glow)] focus-visible:border-[var(--border-hover)] focus-visible:shadow-[var(--shadow-glow)]"
       >
         <motion.div
           className="absolute inset-0 opacity-0 group-hover:opacity-75 group-focus-visible:opacity-75 transition-opacity duration-300"
-          style={{ background: sheenBackground, transform: "translateZ(1px)" }}
+          style={{
+            background:
+              "radial-gradient(circle at 50% 0%, rgba(255,255,255,0.18), transparent 38%)",
+          }}
         />
         <div
           className="absolute inset-0 bg-black opacity-100 group-hover:opacity-80 group-focus-visible:opacity-80 transition-opacity duration-300"
-          style={{ transform: "translateZ(2px)" }}
         />
         <div
           className={`absolute top-0 right-0 w-64 h-64 bg-gradient-to-bl ${industry.color} opacity-0 group-hover:opacity-20 group-focus-visible:opacity-20 rounded-full blur-[60px] translate-x-1/2 -translate-y-1/2 transition-opacity duration-300`}
@@ -114,7 +62,6 @@ function IndustryParallaxCard({
           }}
           transition={{ duration: 0.2, ease: [0.25, 0.46, 0.45, 0.94] }}
           className="absolute inset-0 z-30 flex items-center justify-center p-8 text-center pointer-events-none"
-          style={{ transform: "translateZ(90px)" }}
         />
 
         <motion.div
@@ -124,7 +71,6 @@ function IndustryParallaxCard({
           }}
           transition={{ duration: 0.28, ease: [0.25, 0.46, 0.45, 0.94] }}
           className="relative z-10 flex h-[200px] flex-col items-center justify-start p-4 pt-6 pointer-events-none sm:h-[230px] sm:p-6 sm:pt-8"
-          style={{ x: hudX, y: hudY, transform: "translateZ(46px)" }}
         >
           <div className="relative h-full w-full rounded-[2rem] border border-[#00ff44]/10 bg-[#00ff44]/5 flex items-center justify-center pb-6">
             {industry.hud}
@@ -133,7 +79,6 @@ function IndustryParallaxCard({
 
         <motion.div
           className="relative z-20 mt-[var(--space-sm)] flex-1 pointer-events-none sm:mt-[var(--space-md)]"
-          style={{ x: layerX, y: layerY, transform: "translateZ(78px)" }}
         >
           <motion.div
             variants={{
@@ -224,10 +169,9 @@ export default function ApplicationsSection() {
         >
           <div className="flex gap-6 w-max py-2">
             {INDUSTRIES.map((ind, i) => (
-              <IndustryParallaxCard
+              <IndustryCard
                 key={`${ind.title}-${i}`}
                 industry={ind}
-                index={i}
               />
             ))}
           </div>
