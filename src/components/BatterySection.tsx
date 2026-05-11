@@ -22,8 +22,8 @@ export default function BatterySection() {
   const sectionOpacity = useTransform(scrollYProgress, [0.0, 0.15], [0, 1]);
   const slideProgress = useTransform(scrollYProgress, [0.15, 0.3], [0, 100]);
   const newSlideProgress = useTransform(scrollYProgress, [0.25, 0.4], [100, 0]);
-  const depletedOpacity = useTransform(scrollYProgress, [0.15, 0.3], [1, 0]);
-  const chargedOpacity = useTransform(scrollYProgress, [0.25, 0.4], [0, 1]);
+  const depletedOpacity = useTransform(scrollYProgress, [0.15, 0.25], [1, 0]);
+  const chargedOpacity = useTransform(scrollYProgress, [0.2, 0.35], [0, 1]);
   const cardFloatY = useTransform(scrollYProgress, [0, 0.5, 1], [36, -12, 24]);
   const cardGlow = useTransform(scrollYProgress, [0.2, 0.55], [0.14, 0.34]);
 
@@ -34,7 +34,7 @@ export default function BatterySection() {
   );
   const newLevelProgress = useTransform(
     scrollYProgress,
-    [0.35, 0.55],
+    [0.2, 0.3],
     ["5%", "100%"],
   );
 

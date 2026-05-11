@@ -7,7 +7,7 @@ let modelViewerImport: Promise<unknown> | null = null;
 
 function ensureModelViewer() {
   if (!modelViewerImport) {
-    modelViewerImport = import("@google/model-viewer/dist/model-viewer.min.js");
+    modelViewerImport = import("@google/model-viewer");
   }
 
   return modelViewerImport;
