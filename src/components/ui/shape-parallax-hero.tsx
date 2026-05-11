@@ -7,7 +7,7 @@ import {
   useTransform,
   type MotionValue,
 } from "framer-motion";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 
 function ParallaxShape({
@@ -88,8 +88,18 @@ function HeroParallax({
 }) {
   const containerRef = useRef<HTMLDivElement>(null);
   const reduceMotion = useReducedMotion();
+  const [isMobile, setIsMobile] = useState(false);
 
   const lowMotion = Boolean(reduceMotion);
+  const staticMobileHeadline = lowMotion || isMobile;
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(max-width: 767px)");
+    const updateIsMobile = () => setIsMobile(mediaQuery.matches);
+    updateIsMobile();
+    mediaQuery.addEventListener("change", updateIsMobile);
+    return () => mediaQuery.removeEventListener("change", updateIsMobile);
+  }, []);
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -110,6 +120,18 @@ function HeroParallax({
   );
   const text2Y = useTransform(scrollYProgress, [0.4, 0.6], [50, 0]);
   const text2Scale = useTransform(scrollYProgress, [0.4, 1], [1.05, 1]);
+
+  // Mobile-friendly timing keeps the first statement readable, then reveals the second reliably.
+  const mobileText1Opacity = useTransform(
+    scrollYProgress,
+    [0, 0.45, 0.62],
+    [1, 1, 0],
+  );
+  const mobileText2Opacity = useTransform(
+    scrollYProgress,
+    [0.45, 0.62, 1],
+    [0, 1, 1],
+  );
 
   return (
     <div
@@ -234,7 +256,13 @@ function HeroParallax({
           <div className="max-w-4xl mx-auto text-center absolute inset-0 flex items-center justify-center">
             {/* FIRST TEXT BLOCK */}
             <motion.div
-              style={lowMotion ? { opacity: 1, y: 0, scale: 1 } : { opacity: text1Opacity, y: text1Y, scale: text1Scale }}
+              style={
+                lowMotion
+                  ? { opacity: 1, y: 0, scale: 1 }
+                  : isMobile
+                    ? { opacity: mobileText1Opacity, y: 0, scale: 1 }
+                  : { opacity: text1Opacity, y: text1Y, scale: text1Scale }
+              }
               className="absolute w-full px-4 flex items-center justify-center"
             >
               <h1 className="text-[clamp(24px,8.5vw,34px)] sm:text-[clamp(32px,10vw,82px)] font-bold mb-4 sm:mb-6 tracking-tighter text-white drop-shadow-[0_0_30px_rgba(255,255,255,0.3)] max-w-none leading-[1.05] flex flex-col items-center">
@@ -245,7 +273,13 @@ function HeroParallax({
 
             {/* SECOND TEXT BLOCK */}
             <motion.div
-              style={lowMotion ? { opacity: 0 } : { opacity: text2Opacity, y: text2Y, scale: text2Scale }}
+              style={
+                lowMotion
+                  ? { opacity: 0 }
+                  : isMobile
+                    ? { opacity: mobileText2Opacity, y: 0, scale: 1 }
+                  : { opacity: text2Opacity, y: text2Y, scale: text2Scale }
+              }
               className="absolute w-full px-4 flex items-center justify-center"
             >
               <h1 className="text-[clamp(24px,8.5vw,34px)] sm:text-[clamp(32px,10vw,82px)] font-bold mb-4 sm:mb-6 tracking-tighter text-white drop-shadow-[0_0_30px_rgba(255,255,255,0.3)] max-w-none leading-[1.05] flex flex-col items-center">
@@ -260,7 +294,7 @@ function HeroParallax({
 
         {/* Scroll Indicator */}
         <motion.div
-          style={lowMotion ? { opacity: 0 } : { opacity: text1Opacity }}
+          style={lowMotion || isMobile ? { opacity: 0 } : { opacity: text1Opacity }}
           className="absolute bottom-6 sm:bottom-10 left-1/2 -translate-x-1/2 text-white/50 flex flex-col items-center gap-2"
         >
           <div className="w-[1px] h-8 sm:h-12 bg-gradient-to-b from-transparent via-white/50 to-transparent animate-[pulse_2s_ease-in-out_infinite]" />

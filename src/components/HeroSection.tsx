@@ -66,7 +66,7 @@ export default function HeroSection() {
                   }
             }
             transition={lowMotion ? { duration: 0.2 } : { duration: 6, repeat: Infinity, ease: "easeInOut" }}
-            className="hidden sm:block absolute bottom-[-200%] sm:bottom-[-180%] md:bottom-[-150%] left-1/2 -translate-x-1/2 w-[280vw] sm:w-[220vw] md:w-[185vw] lg:w-[130vw] h-[60vh] sm:h-[65vh] md:h-[68vh] rounded-[100%] bg-gradient-to-t from-white/55 via-neutral-400/45 to-transparent blur-[90px] pointer-events-none mix-blend-screen"
+            className="hidden sm:block absolute bottom-[-200%] sm:bottom-[-180%] md:bottom-[-150%] left-1/2 -translate-x-1/2 w-[280vw] sm:w-[220vw] md:w-[185vw] lg:w-[130vw] h-[60vh] sm:h-[65vh] md:h-[68vh] rounded-[100%] bg-gradient-to-t from-white/80 via-neutral-300/70 to-transparent blur-[88px] pointer-events-none mix-blend-screen"
           />
 
           {/* Desktop/Tablet: Light Rays */}
@@ -83,8 +83,8 @@ export default function HeroSection() {
               noiseAmount={0.06}
               distortion={0.04}
               fadeDistance={2}
-              saturation={2}
-              intensity={2.25}
+              saturation={2.4}
+              intensity={2.9}
               opacity={1}
               maxDpr={1.15}
               fps={30}
@@ -96,25 +96,25 @@ export default function HeroSection() {
           {/* Mobile only: light rays + five separated background components */}
           <div className="md:hidden absolute inset-0 z-0 pointer-events-none overflow-hidden">
             {lowMotion ? (
-              <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_100%,rgba(255,255,255,0.16),transparent_58%)]" />
+              <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_100%,rgba(255,255,255,0.28),transparent_58%)]" />
             ) : null}
 
             {!lowMotion ? (
-              <div className="absolute inset-0 z-0 pointer-events-none opacity-80">
+              <div className="absolute inset-0 z-0 pointer-events-none opacity-95">
                 <LightRays
                   raysOrigin="bottom-center"
                   raysColor="#ffffff"
-                  raysSpeed={0.75}
-                  lightSpread={2}
-                  rayLength={1.35}
+                  raysSpeed={1}
+                  lightSpread={2.4}
+                  rayLength={1.65}
                   followMouse={false}
                   mouseInfluence={0}
                   noiseAmount={0}
                   distortion={0}
                   fadeDistance={2}
-                  saturation={2}
-                  intensity={1.25}
-                  opacity={0.78}
+                  saturation={2.3}
+                  intensity={2.05}
+                  opacity={0.95}
                   maxDpr={0.85}
                   fps={24}
                   className="custom-rays"
@@ -131,7 +131,7 @@ export default function HeroSection() {
                     y: [0, -10, 6, 0],
                   }}
                   transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-                  className="absolute top-[7%] left-[4%] z-10 w-8 h-8 rounded-full bg-gradient-to-br from-white/12 to-transparent blur-lg"
+                  className="absolute top-[7%] left-[4%] z-10 w-10 h-10 rounded-full bg-gradient-to-br from-white/24 to-transparent blur-xl"
                 />
 
                 {/* Component 2: Top-right floating orb */}
@@ -146,7 +146,7 @@ export default function HeroSection() {
                     ease: "easeInOut",
                     delay: 0.5,
                   }}
-                  className="absolute top-[16%] right-[4%] z-10 w-9 h-9 rounded-full bg-gradient-to-tl from-[var(--accent)]/10 to-transparent blur-lg"
+                  className="absolute top-[16%] right-[4%] z-10 w-10 h-10 rounded-full bg-gradient-to-tl from-[var(--accent)]/22 to-transparent blur-xl"
                 />
 
                 {/* Component 3: Mid-left glow */}
@@ -161,7 +161,7 @@ export default function HeroSection() {
                     ease: "easeInOut",
                     delay: 1,
                   }}
-                  className="absolute top-[52%] right-[10%] z-10 w-6 h-6 rounded-full bg-gradient-to-tr from-white/10 to-transparent blur-md"
+                  className="absolute top-[52%] right-[10%] z-10 w-7 h-7 rounded-full bg-gradient-to-tr from-white/20 to-transparent blur-lg"
                 />
 
                 {/* Component 4: Bottom-left orb */}
@@ -176,7 +176,7 @@ export default function HeroSection() {
                     ease: "easeInOut",
                     delay: 1.5,
                   }}
-                  className="absolute bottom-[24%] left-[6%] z-10 w-8 h-8 rounded-full bg-gradient-to-bl from-white/10 to-transparent blur-lg"
+                  className="absolute bottom-[24%] left-[6%] z-10 w-10 h-10 rounded-full bg-gradient-to-bl from-white/22 to-transparent blur-xl"
                 />
 
                 {/* Component 5: Bottom-right ribbon glow */}
@@ -191,7 +191,7 @@ export default function HeroSection() {
                     ease: "easeInOut",
                     delay: 2,
                   }}
-                  className="absolute bottom-[10%] right-[8%] z-10 w-10 h-6 rounded-full bg-gradient-to-l from-white/10 to-transparent blur-lg"
+                  className="absolute bottom-[10%] right-[8%] z-10 w-12 h-7 rounded-full bg-gradient-to-l from-white/22 to-transparent blur-xl"
                 />
               </>
             )}

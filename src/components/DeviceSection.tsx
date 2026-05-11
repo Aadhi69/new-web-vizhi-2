@@ -196,7 +196,7 @@ function DeviceParallaxCard({
         style={cardStyle}
         whileHover={{ scale: 1.015 }}
         transition={{ type: "spring", stiffness: 150, damping: 18 }}
-        className="relative h-[240px] sm:h-[320px] md:h-[500px] w-full overflow-hidden rounded-[var(--radius-md)] border border-white/20 bg-[linear-gradient(145deg,#2a2a30,#111115_60%,#050505)] p-1 shadow-[var(--shadow-glow)] pointer-events-none sm:pointer-events-auto"
+        className="relative h-[240px] sm:h-[320px] md:h-[500px] w-full overflow-hidden rounded-[var(--radius-md)] border border-white/20 bg-[linear-gradient(145deg,#2a2a30,#111115_60%,#050505)] p-1 shadow-[var(--shadow-glow)] pointer-events-auto"
       >
         <motion.div
           className="absolute inset-0 opacity-75 sm:opacity-0"

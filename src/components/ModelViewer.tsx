@@ -14,7 +14,6 @@ export default function ModelViewer() {
         minCameraOrbit="auto 45deg 5.3m"
         maxCameraOrbit="auto 120deg 5.3m"
         modelScale="0.72 0.72 0.72"
-        logCameraOnInteraction
         style={{
           margin: "auto",
           maxWidth: "100%",

@@ -7,7 +7,7 @@ let modelViewerImport: Promise<unknown> | null = null;
 
 function ensureModelViewer() {
   if (!modelViewerImport) {
-    modelViewerImport = import("@google/model-viewer");
+    modelViewerImport = import("@google/model-viewer/dist/model-viewer.min.js");
   }
 
   return modelViewerImport;
@@ -27,7 +27,6 @@ type LiteModelViewerProps = {
   maxCameraOrbit?: string;
   modelScale?: string;
   rotationPerSecond?: string;
-  logCameraOnInteraction?: boolean;
 };
 
 type ModelViewerElement = HTMLElement & {
@@ -57,53 +56,12 @@ function LiteModelViewer({
   maxCameraOrbit,
   modelScale,
   rotationPerSecond = "22deg",
-  logCameraOnInteraction = false,
 }: LiteModelViewerProps) {
   const modelViewerRef = useRef<ModelViewerElement | null>(null);
 
   useEffect(() => {
     void ensureModelViewer();
   }, []);
-
-  useEffect(() => {
-    if (!modelViewerRef.current || !logCameraOnInteraction) return;
-
-    const currentModelViewer: ModelViewerElement = modelViewerRef.current;
-
-    const toDeg = (radians: number) => Number((radians * 180 / Math.PI).toFixed(2));
-    const toFixed = (value: number) => Number(value.toFixed(4));
-
-    function handleCameraChange(event: Event) {
-      const detail = (event as CustomEvent<{ source?: string }>).detail;
-      if (detail?.source && detail.source !== "user-interaction") return;
-
-      const orbit = currentModelViewer.getCameraOrbit?.();
-      const target = currentModelViewer.getCameraTarget?.();
-
-      console.log("[model-viewer camera]", {
-        cameraOrbitDeg: orbit
-          ? {
-              theta: toDeg(orbit.theta),
-              phi: toDeg(orbit.phi),
-              radius: toFixed(orbit.radius),
-            }
-          : null,
-        cameraTarget: target
-          ? {
-              x: toFixed(target.x),
-              y: toFixed(target.y),
-              z: toFixed(target.z),
-            }
-          : null,
-      });
-    }
-
-    currentModelViewer.addEventListener("camera-change", handleCameraChange);
-
-    return () => {
-      currentModelViewer.removeEventListener("camera-change", handleCameraChange);
-    };
-  }, [logCameraOnInteraction]);
 
   return React.createElement("model-viewer", {
     ref: modelViewerRef,
@@ -128,7 +86,7 @@ function LiteModelViewer({
     scale: modelScale,
     "environment-image": "neutral",
     "tone-mapping": "neutral",
-    "touch-action": "pan-y",
+    "touch-action": "none",
     suppressHydrationWarning: true,
     style: {
       width: "100%",

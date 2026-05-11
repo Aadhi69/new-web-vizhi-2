@@ -77,6 +77,7 @@ export default function Logo() {
                   src="/Vizhi_Logo_title.png"
                   alt="Vizhi XR Platform Logo"
                   fill
+                  sizes="(max-width: 767px) 112px, 128px"
                   className="object-contain"
                   priority
                 />

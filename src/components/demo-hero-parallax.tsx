@@ -2,7 +2,7 @@ import { HeroParallax } from "@/components/ui/shape-parallax-hero";
 
 function DemoHeroParallax() {
     return (
-        <section className="relative w-full">
+        <section className="relative w-full" style={{ position: "relative" }}>
             <HeroParallax
                 title1="Technology should adapt to"
                 title2="the way human works"
