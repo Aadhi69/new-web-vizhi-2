@@ -48,7 +48,7 @@ export default function HeroSection() {
       className={`relative ${lowMotion ? "h-screen" : "h-[180vh] sm:h-[180vh] md:h-[200vh]"} bg-[var(--surface-deep)]`}
     >
       {/* Sticky container to hold the animating elements */}
-      <div className="sticky top-0 h-[100dvh] sm:h-screen w-full flex items-center justify-center overflow-hidden">
+      <div className="sticky top-0 h-[100dvh] sm:h-screen w-full flex items-center justify-center overflow-visible">
         {/* Scene 3 */}
         <motion.div
           style={lowMotion ? { opacity: 0 } : { opacity: scene3Opacity, y: scene3Y, scale: scene3Scale }}
@@ -69,8 +69,18 @@ export default function HeroSection() {
             className="hidden sm:block absolute bottom-[-200%] sm:bottom-[-180%] md:bottom-[-150%] left-1/2 -translate-x-1/2 w-[280vw] sm:w-[220vw] md:w-[185vw] lg:w-[130vw] h-[60vh] sm:h-[65vh] md:h-[68vh] rounded-[100%] bg-gradient-to-t from-white/80 via-neutral-300/70 to-transparent blur-[88px] pointer-events-none mix-blend-screen"
           />
 
+          <h2 className="text-[clamp(24px,8vw,48px)] sm:text-[clamp(56px,11vw,144px)] font-[900] leading-tight sm:leading-none tracking-[-0.05em] text-[var(--text-primary)] z-20 px-6">
+            Introducing Vizhi
+          </h2>
+        </motion.div>
+
+        {/* Extracted Light Rays to avoid transform clipping and scale artifacts */}
+        <motion.div 
+          style={{ opacity: scene3Opacity }}
+          className="fixed inset-0 z-0 pointer-events-none w-screen h-screen will-change-transform [transform:translateZ(0)]"
+        >
           {/* Desktop/Tablet: Light Rays */}
-          <div className="hidden md:block absolute inset-0 z-0 pointer-events-none">
+          <div className="hidden md:block absolute inset-0 w-full h-full">
             {!lowMotion ? (
             <LightRays
               raysOrigin="bottom-center"
@@ -94,13 +104,13 @@ export default function HeroSection() {
           </div>
 
           {/* Mobile only: light rays + five separated background components */}
-          <div className="md:hidden absolute inset-0 z-0 pointer-events-none overflow-hidden">
+          <div className="md:hidden absolute inset-0 w-full h-full overflow-visible">
             {lowMotion ? (
               <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_100%,rgba(255,255,255,0.28),transparent_58%)]" />
             ) : null}
 
             {!lowMotion ? (
-              <div className="absolute inset-0 z-0 pointer-events-none opacity-95">
+              <div className="absolute inset-0 w-full h-full opacity-95">
                 <LightRays
                   raysOrigin="bottom-center"
                   raysColor="#ffffff"
@@ -196,10 +206,6 @@ export default function HeroSection() {
               </>
             )}
           </div>
-
-          <h2 className="text-[clamp(24px,8vw,48px)] sm:text-[clamp(56px,11vw,144px)] font-[900] leading-tight sm:leading-none tracking-[-0.05em] text-[var(--text-primary)] z-20 px-6">
-            Introducing Vizhi
-          </h2>
         </motion.div>
 
         {/* Scene 4 - Final Hero Output */}
