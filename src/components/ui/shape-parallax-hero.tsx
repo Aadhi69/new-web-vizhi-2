@@ -143,111 +143,194 @@ function HeroParallax({
         <div className="absolute inset-0 bg-gradient-to-br from-white/[0.02] via-transparent to-white/[0.02] blur-3xl pointer-events-none" />
 
         <div className="absolute inset-0 overflow-hidden">
-          {!lowMotion ? (
+          {!lowMotion && !isMobile ? (
             <>
-          {/* 1. INDIGO - Top Right Bleed (Subtle atmosphere) */}
-          <ParallaxShape
-            scrollYProgress={scrollYProgress}
-            yRange={[-50, -100]}
-            xRange={[0, 50]}
-            delay={0.3}
-            width={500}
-            height={140}
-            rotate={35}
-            gradient="from-white/[0.05]"
-            className="right-[-10%] top-[-5%]"
-          />
+              {/* 1. INDIGO - Top Right Bleed (Subtle atmosphere) */}
+              <ParallaxShape
+                scrollYProgress={scrollYProgress}
+                yRange={[-50, -100]}
+                xRange={[0, 50]}
+                delay={0.3}
+                width={500}
+                height={140}
+                rotate={35}
+                gradient="from-white/[0.05]"
+                className="right-[-10%] top-[-5%]"
+              />
 
-          {/* 2. ROSE - Left Center Main Focus (Fully visible, anchors the left) */}
-          <ParallaxShape
-            scrollYProgress={scrollYProgress}
-            yRange={[-30, 80]}
-            xRange={[-30, 30]}
-            delay={0.5}
-            width={350}
-            height={100}
-            rotate={-20}
-            gradient="from-white/[0.05]"
-            className="left-[12%] top-[25%]"
-          />
+              {/* 2. ROSE - Left Center Main Focus (Fully visible, anchors the left) */}
+              <ParallaxShape
+                scrollYProgress={scrollYProgress}
+                yRange={[-30, 80]}
+                xRange={[-30, 30]}
+                delay={0.5}
+                width={350}
+                height={100}
+                rotate={-20}
+                gradient="from-white/[0.05]"
+                className="left-[12%] top-[25%]"
+              />
 
-          {/* 3. VIOLET - Bottom Left Edge (Sinks off screen slowly) */}
-          <ParallaxShape
-            scrollYProgress={scrollYProgress}
-            yRange={[0, 100]}
-            xRange={[0, -50]}
-            delay={0.4}
-            width={250}
-            height={80}
-            rotate={15}
-            gradient="from-white/[0.05]"
-            className="left-[-5%] bottom-[10%]"
-          />
+              {/* 3. VIOLET - Bottom Left Edge (Sinks off screen slowly) */}
+              <ParallaxShape
+                scrollYProgress={scrollYProgress}
+                yRange={[0, 100]}
+                xRange={[0, -50]}
+                delay={0.4}
+                width={250}
+                height={80}
+                rotate={15}
+                gradient="from-white/[0.05]"
+                className="left-[-5%] bottom-[10%]"
+              />
 
-          {/* 4. AMBER - Right Center Main Focus (Fully visible, anchors the right text block) */}
-          <ParallaxShape
-            scrollYProgress={scrollYProgress}
-            yRange={[-50, -150]}
-            xRange={[20, -20]}
-            delay={0.6}
-            width={400}
-            height={100}
-            rotate={-50}
-            gradient="from-white/[0.05]"
-            className="right-[15%] top-[55%]"
-          />
+              {/* 4. AMBER - Right Center Main Focus (Fully visible, anchors the right text block) */}
+              <ParallaxShape
+                scrollYProgress={scrollYProgress}
+                yRange={[-50, -150]}
+                xRange={[20, -20]}
+                delay={0.6}
+                width={400}
+                height={100}
+                rotate={-50}
+                gradient="from-white/[0.05]"
+                className="right-[15%] top-[55%]"
+              />
 
-          {/* 5. CYAN - Far Bottom Right Accent (Bleeds off) */}
-          <ParallaxShape
-            scrollYProgress={scrollYProgress}
-            yRange={[50, -50]}
-            xRange={[-20, 80]}
-            delay={0.7}
-            width={200}
-            height={60}
-            rotate={60}
-            gradient="from-white/[0.05]"
-            className="right-[5%] bottom-[-5%]"
-          />
+              {/* 5. CYAN - Far Bottom Right Accent (Bleeds off) */}
+              <ParallaxShape
+                scrollYProgress={scrollYProgress}
+                yRange={[50, -50]}
+                xRange={[-20, 80]}
+                delay={0.7}
+                width={200}
+                height={60}
+                rotate={60}
+                gradient="from-white/[0.05]"
+                className="right-[5%] bottom-[-5%]"
+              />
 
-          {/* 6. EMERALD - Upper Left Ambient Edge */}
-          <ParallaxShape
-            scrollYProgress={scrollYProgress}
-            yRange={[-20, 40]}
-            xRange={[-40, 0]}
-            delay={0.35}
-            width={220}
-            height={70}
-            rotate={-15}
-            gradient="from-white/[0.05]"
-            className="left-[-2%] top-[15%]"
-          />
+              {/* 6. EMERALD - Upper Left Ambient Edge */}
+              <ParallaxShape
+                scrollYProgress={scrollYProgress}
+                yRange={[-20, 40]}
+                xRange={[-40, 0]}
+                delay={0.35}
+                width={220}
+                height={70}
+                rotate={-15}
+                gradient="from-white/[0.05]"
+                className="left-[-2%] top-[15%]"
+              />
 
-          {/* 7. FUCHSIA - Mid Right Background Float */}
-          <ParallaxShape
-            scrollYProgress={scrollYProgress}
-            yRange={[-60, 20]}
-            xRange={[30, 80]}
-            delay={0.55}
-            width={280}
-            height={85}
-            rotate={45}
-            gradient="from-white/[0.05]"
-            className="right-[-2%] top-[35%]"
-          />
+              {/* 7. FUCHSIA - Mid Right Background Float */}
+              <ParallaxShape
+                scrollYProgress={scrollYProgress}
+                yRange={[-60, 20]}
+                xRange={[30, 80]}
+                delay={0.55}
+                width={280}
+                height={85}
+                rotate={45}
+                gradient="from-white/[0.05]"
+                className="right-[-2%] top-[35%]"
+              />
 
-          {/* 8. SKY - Lower Left Sweeping Arc */}
-          <ParallaxShape
-            scrollYProgress={scrollYProgress}
-            yRange={[30, 120]}
-            xRange={[-50, 20]}
-            delay={0.65}
-            width={320}
-            height={95}
-            rotate={-65}
-            gradient="from-white/[0.05]"
-            className="left-[5%] bottom-[25%]"
-          />
+              {/* 8. SKY - Lower Left Sweeping Arc */}
+              <ParallaxShape
+                scrollYProgress={scrollYProgress}
+                yRange={[30, 120]}
+                xRange={[-50, 20]}
+                delay={0.65}
+                width={320}
+                height={95}
+                rotate={-65}
+                gradient="from-white/[0.05]"
+                className="left-[5%] bottom-[25%]"
+              />
+            </>
+          ) : null}
+
+          {/* Mobile-only subtle background elements - spread across viewport */}
+          {isMobile && !lowMotion ? (
+            <>
+              {/* Top center shape */}
+              <ParallaxShape
+                scrollYProgress={scrollYProgress}
+                yRange={[-30, 30]}
+                xRange={[0, 0]}
+                delay={0.3}
+                width={150}
+                height={60}
+                rotate={20}
+                gradient="from-white/[0.04]"
+                className="left-1/2 -translate-x-1/2 top-[5%]"
+              />
+              
+              {/* Left side shape */}
+              <ParallaxShape
+                scrollYProgress={scrollYProgress}
+                yRange={[0, 40]}
+                xRange={[-20, 20]}
+                delay={0.4}
+                width={120}
+                height={50}
+                rotate={-25}
+                gradient="from-white/[0.04]"
+                className="left-[8%] top-[30%]"
+              />
+              
+              {/* Right side shape */}
+              <ParallaxShape
+                scrollYProgress={scrollYProgress}
+                yRange={[-20, 30]}
+                xRange={[20, -20]}
+                delay={0.45}
+                width={130}
+                height={55}
+                rotate={35}
+                gradient="from-white/[0.04]"
+                className="right-[8%] top-[25%]"
+              />
+              
+              {/* Bottom left shape */}
+              <ParallaxShape
+                scrollYProgress={scrollYProgress}
+                yRange={[20, 60]}
+                xRange={[-15, 10]}
+                delay={0.5}
+                width={140}
+                height={65}
+                rotate={-40}
+                gradient="from-white/[0.04]"
+                className="left-[5%] bottom-[20%]"
+              />
+              
+              {/* Bottom right shape */}
+              <ParallaxShape
+                scrollYProgress={scrollYProgress}
+                yRange={[0, 50]}
+                xRange={[15, -15]}
+                delay={0.55}
+                width={160}
+                height={70}
+                rotate={50}
+                gradient="from-white/[0.04]"
+                className="right-[6%] bottom-[18%]"
+              />
+              
+              {/* Bottom center shape */}
+              <ParallaxShape
+                scrollYProgress={scrollYProgress}
+                yRange={[30, 80]}
+                xRange={[0, 0]}
+                delay={0.35}
+                width={150}
+                height={60}
+                rotate={-20}
+                gradient="from-white/[0.04]"
+                className="left-1/2 -translate-x-1/2 bottom-[8%]"
+              />
             </>
           ) : null}
         </div>
@@ -261,13 +344,17 @@ function HeroParallax({
                   ? { opacity: 1, y: 0, scale: 1 }
                   : isMobile
                     ? { opacity: mobileText1Opacity, y: 0, scale: 1 }
-                  : { opacity: text1Opacity, y: text1Y, scale: text1Scale }
+                    : { opacity: text1Opacity, y: text1Y, scale: text1Scale }
               }
               className="absolute w-full px-4 flex items-center justify-center"
             >
               <h1 className="text-[clamp(24px,8.5vw,34px)] sm:text-[clamp(32px,10vw,82px)] font-bold mb-4 sm:mb-6 tracking-tighter text-white drop-shadow-[0_0_30px_rgba(255,255,255,0.3)] max-w-none leading-[1.05] flex flex-col items-center">
-                <span className="whitespace-normal sm:whitespace-nowrap">{title1}</span>
-                <span className="whitespace-normal sm:whitespace-nowrap">{title2}</span>
+                <span className="whitespace-normal sm:whitespace-nowrap">
+                  {title1}
+                </span>
+                <span className="whitespace-normal sm:whitespace-nowrap">
+                  {title2}
+                </span>
               </h1>
             </motion.div>
 
@@ -278,13 +365,17 @@ function HeroParallax({
                   ? { opacity: 0 }
                   : isMobile
                     ? { opacity: mobileText2Opacity, y: 0, scale: 1 }
-                  : { opacity: text2Opacity, y: text2Y, scale: text2Scale }
+                    : { opacity: text2Opacity, y: text2Y, scale: text2Scale }
               }
               className="absolute w-full px-4 flex items-center justify-center"
             >
               <h1 className="text-[clamp(24px,8.5vw,34px)] sm:text-[clamp(32px,10vw,82px)] font-bold mb-4 sm:mb-6 tracking-tighter text-white drop-shadow-[0_0_30px_rgba(255,255,255,0.3)] max-w-none leading-[1.05] flex flex-col items-center">
-                <span className="whitespace-normal sm:whitespace-nowrap">{title3}</span>
-                <span className="whitespace-normal sm:whitespace-nowrap">{title4}</span>
+                <span className="whitespace-normal sm:whitespace-nowrap">
+                  {title3}
+                </span>
+                <span className="whitespace-normal sm:whitespace-nowrap">
+                  {title4}
+                </span>
               </h1>
             </motion.div>
           </div>
@@ -294,7 +385,9 @@ function HeroParallax({
 
         {/* Scroll Indicator */}
         <motion.div
-          style={lowMotion || isMobile ? { opacity: 0 } : { opacity: text1Opacity }}
+          style={
+            lowMotion || isMobile ? { opacity: 0 } : { opacity: text1Opacity }
+          }
           className="absolute bottom-6 sm:bottom-10 left-1/2 -translate-x-1/2 text-white/50 flex flex-col items-center gap-2"
         >
           <div className="w-[1px] h-8 sm:h-12 bg-gradient-to-b from-transparent via-white/50 to-transparent animate-[pulse_2s_ease-in-out_infinite]" />

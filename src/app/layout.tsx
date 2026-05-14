@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import SmoothScrolling from "@/components/SmoothScrolling";
 import CookieConsent from "@/components/CookieConsent";
+import ErrorBoundary from "@/components/ErrorBoundary";
 import { cn } from "@/lib/utils";
 
 export const metadata: Metadata = {
@@ -72,7 +73,9 @@ export default function RootLayout({
         className="antialiased bg-[#050505] text-white selection:bg-[#00e5ff] selection:text-black"
         suppressHydrationWarning
       >
-        <SmoothScrolling>{children}</SmoothScrolling>
+        <ErrorBoundary>
+          <SmoothScrolling>{children}</SmoothScrolling>
+        </ErrorBoundary>
         <CookieConsent />
       </body>
     </html>

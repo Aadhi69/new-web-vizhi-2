@@ -19,6 +19,7 @@ export default function ARTryOnOverlay({
       <button
         onClick={onClose}
         className="group absolute top-8 right-8 z-50 rounded-full border border-white/20 bg-black/40 p-3 text-white backdrop-blur-md transition-colors hover:bg-black/60"
+        aria-label="Close AR overlay"
       >
         <X
           size={24}
